@@ -1,8 +1,8 @@
 ﻿using TFA.Domain.Models;
 
-namespace TFA.Domain.UseCases.CreateTopic;
+namespace TFA.Domain.Interfaces.Storages;
 
-public interface ICreateTokenStorage
+public interface ICreateTopicStorage
 {
     Task<bool> ForumExistsAsync(Guid forumId, CancellationToken cancellationToken);
 

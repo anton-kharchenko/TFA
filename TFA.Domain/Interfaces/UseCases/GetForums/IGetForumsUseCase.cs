@@ -1,6 +1,6 @@
 ﻿using TFA.Domain.Models;
 
-namespace TFA.Domain.UseCases.GetForums;
+namespace TFA.Domain.Interfaces.UseCases.GetForums;
 
 public interface IGetForumsUseCase
 {

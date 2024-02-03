@@ -1,4 +1,4 @@
-﻿namespace TFA.Domain;
+﻿namespace TFA.Domain.Interfaces.Helpers;
 
 public interface IMomentProvider
 {

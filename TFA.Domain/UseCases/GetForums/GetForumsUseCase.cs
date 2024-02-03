@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TFA.Domain.Interfaces;
+using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Storage;
 using Forum = TFA.Domain.Models.Forum;
 
