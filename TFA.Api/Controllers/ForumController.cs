@@ -3,6 +3,7 @@ using TFA.Api.Requests;
 using TFA.Api.Responses;
 using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
+using TFA.Domain.Validations.CreateTopic;
 using Forum = TFA.Api.Models.Forum;
 
 namespace TFA.Api.Controllers;
@@ -32,7 +33,9 @@ public class ForumController : ControllerBase
     {
         try
         {
-            var topic = await topicUseCase.ExecuteAsync(forumId, request.Title, cancellationToken);
+            var command = new CreateTopicCommand(forumId, request.Title);
+            
+            var topic = await topicUseCase.ExecuteAsync(command, cancellationToken);
             
             return CreatedAtRoute(nameof(GetForums), new TopicResponse
             {
