@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using TFA.Api.Extensions;
 using TFA.Domain.Exceptions;
@@ -20,11 +21,18 @@ public class ErrorHandlingMiddleware(RequestDelegate next)
                 IntentionManagerException intentionManagerException => problemDetailsFactory.CreateFrom(httpContext, intentionManagerException),
                 DomainException domainException => problemDetailsFactory.CreateFrom(httpContext, domainException),
                 ValidationException validationException => problemDetailsFactory.CreateFrom(httpContext, validationException),
-                _ => problemDetailsFactory.CreateProblemDetails(httpContext, StatusCodes.Status500InternalServerError, "Unhandled error", exception.Message)
+                _ => problemDetailsFactory.CreateProblemDetails(httpContext, StatusCodes.Status500InternalServerError, "Unhandled error")
             };
             
             httpContext.Response.StatusCode = problemDetails.Status ?? StatusCodes.Status500InternalServerError;
-            await httpContext.Response.WriteAsJsonAsync(problemDetails);
+            if (problemDetails is ValidationProblemDetails validationProblemDetails)
+            {
+                await httpContext.Response.WriteAsJsonAsync(validationProblemDetails);
+            }
+            else
+            {
+                await httpContext.Response.WriteAsJsonAsync(problemDetails);
+            }
         }
     }
 }
