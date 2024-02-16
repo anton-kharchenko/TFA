@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TFA.Api.Requests;
 using TFA.Api.Responses;
-using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
 using TFA.Domain.Validations.CreateTopic;
 using Forum = TFA.Api.Models.Forum;
@@ -17,7 +16,6 @@ public class ForumController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetForums()
     {
-        
         return Ok();
     }
 
@@ -26,34 +24,20 @@ public class ForumController : ControllerBase
     [ProducesResponseType(410)]
     [ProducesResponseType(201, Type = typeof(TopicResponse))]
     public async Task<IActionResult> CreateTopic(
-        Guid forumId, 
+        Guid forumId,
         [FromBody] CreateTopicRequest request,
-        [FromServices] ICreateTopicUseCase topicUseCase, 
+        [FromServices] ICreateTopicUseCase topicUseCase,
         CancellationToken cancellationToken)
     {
-        try
-        {
-            var command = new CreateTopicCommand(forumId, request.Title);
-            
-            var topic = await topicUseCase.ExecuteAsync(command, cancellationToken);
-            
-            return CreatedAtRoute(nameof(GetForums), new TopicResponse
-            {
-                Id = topic.Id,
-                Title = topic.Title,
-                CreatedAt = topic.CreatedAt
-            });
-        }
-        catch (Exception exception)
-        {
-            return exception switch
-            {
-                IntentionManagerException => Forbid(),
-                ForumNotFoundException => StatusCode(StatusCodes.Status410Gone),
-                _ => StatusCode(StatusCodes.Status500InternalServerError)
-            };
-        }
-    }
-    
-}
+        var command = new CreateTopicCommand(forumId, request.Title);
 
+        var topic = await topicUseCase.ExecuteAsync(command, cancellationToken);
+
+        return CreatedAtRoute(nameof(GetForums), new TopicResponse
+        {
+            Id = topic.Id,
+            Title = topic.Title,
+            CreatedAt = topic.CreatedAt
+        });
+    }
+}

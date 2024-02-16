@@ -1,3 +1,3 @@
 ﻿namespace TFA.Domain.Exceptions;
 
-public class IntentionManagerException() : Exception("Action is not allowed");
+public class IntentionManagerException() : DomainException(403, "Unauthorized exception");
