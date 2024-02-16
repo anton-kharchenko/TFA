@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Moq;
 using Moq.Language.Flow;
+using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;

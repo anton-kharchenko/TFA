@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Validations.CreateTopic;
 
 namespace TFA.Domain.Tests;
@@ -21,7 +22,7 @@ public class CreateTopicCommandValidatorShould
         yield return [validCommand with { ForumId = Guid.Empty}, nameof(CreateTopicCommand.ForumId), "Empty"];
         yield return [validCommand with { Title = string.Empty}, nameof(CreateTopicCommand.ForumId), "Empty"];
         yield return [validCommand with { Title = "       "}, nameof(CreateTopicCommand.ForumId), "Empty"];
-        yield return [validCommand with { Title = "NuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNuncconsectetur"}, 
+        yield return [validCommand with { Title = "NuncconsecteturNuncconsecteturNuncconsecteturNuncconsecteturNunteturonsecteturNuncconsecteturNuncconsectetur"}, 
                       nameof(CreateTopicCommand.ForumId), "TooLong"];
     }
 

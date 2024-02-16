@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Exceptions;
 using TFA.Domain.Extensions;
 using TFA.Domain.Interfaces.Authentication;

@@ -1,4 +1,4 @@
-﻿using TFA.Domain.Validations.CreateTopic;
+﻿using TFA.Domain.Commands.CreateTopic;
 using Topic = TFA.Domain.Models.Topic;
 
 namespace TFA.Domain.Interfaces.UseCases.CreateTopic;

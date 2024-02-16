@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TFA.Api.Requests;
 using TFA.Api.Responses;
+using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
-using TFA.Domain.Validations.CreateTopic;
 using Forum = TFA.Api.Models.Forum;
 
 namespace TFA.Api.Controllers;
@@ -14,9 +14,9 @@ public class ForumController : ControllerBase
     [HttpGet(Name = nameof(GetForums))]
     [ProducesResponseType(200, Type = typeof(Forum))]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> GetForums()
+    public Task<IActionResult> GetForums()
     {
-        return Ok();
+        return Task.FromResult<IActionResult>(Ok());
     }
 
     [HttpPost("{forumId}/topics")]
