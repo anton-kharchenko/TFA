@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Filters;
 using TFA.Api.Middlewares;
 using TFA.Domain.Authentication;
 using TFA.Domain.Authorization;
@@ -21,7 +22,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLogging(b => b.AddSerilog(new LoggerConfiguration()
     .MinimumLevel.Debug()
-    .WriteTo.Console()
+    .Enrich.WithProperty("Application", "TFA.Api")
+    .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
+    .WriteTo.Logger(lc => lc.Filter.ByExcluding(Matching.FromSource("Microsoft"))
+        .WriteTo.OpenSearch(
+            builder.Configuration.GetConnectionString("Logs"),
+            "forum-logs-{0:yyyy.MM.dd}"
+        ))
+    .WriteTo.Logger(lc =>
+    {
+        lc.Filter.ByExcluding(Matching.FromSource("Microsoft"));
+        lc.WriteTo.Console();
+    })
     .CreateLogger()));
 
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
