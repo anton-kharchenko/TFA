@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TFA.Domain.Helpers;
-using TFA.Domain.Interfaces.Helpers;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.Interfaces.UseCases.GetForums;
+using TFA.Storage.Helpers;
 using TFA.Storage.Storages;
 
 namespace TFA.Storage.DependencyInjection;

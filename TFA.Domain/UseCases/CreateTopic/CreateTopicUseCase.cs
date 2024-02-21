@@ -6,11 +6,10 @@ using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
-using TFA.Domain.Validations.CreateTopic;
 
 namespace TFA.Domain.UseCases.CreateTopic;
 
-public class CreateTopicUseCase(
+internal class CreateTopicUseCase(
  IIntentionManager intentionManager,
  ICreateTopicStorage storage, 
  IIdentityProvider identityProvider, 

@@ -1,6 +1,4 @@
-﻿using TFA.Domain.Interfaces.Helpers;
-
-namespace TFA.Domain.Helpers;
+﻿namespace TFA.Storage.Helpers;
 
 public class MomentProvider : IMomentProvider
 {

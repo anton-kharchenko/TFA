@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TFA.Domain.Interfaces.Helpers;
 using TFA.Domain.Interfaces.Storages;
+using TFA.Storage.Helpers;
 
 namespace TFA.Storage.Storages;
 
-public class CreateTopicStorage(
+internal class CreateTopicStorage(
     IGuidFactory guidFactory,
     IMomentProvider momentProvider,
     ForumDbContext dbContext) : ICreateTopicStorage

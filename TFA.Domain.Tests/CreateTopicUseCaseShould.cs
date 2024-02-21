@@ -84,7 +84,11 @@ public class CreateTopicUseCaseShould
         _forumExistsSetup.ReturnsAsync(true);
         _getCurrentUserId.Returns(userId);
 
-        var expectedTopic = new Topic();
+        var expectedTopic = new Topic
+        {
+            Title = string.Empty
+        };
+        
         _createTopicSetup.ReturnsAsync(expectedTopic);
 
         const string title = "Hello world";

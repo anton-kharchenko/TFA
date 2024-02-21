@@ -11,6 +11,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{53B2074A-A9BF-4F48-B49F-50C5981A3F68}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Domain.DependencyInjection", "TFA.Domain.DependencyInjection\TFA.Domain.DependencyInjection.csproj", "{9837D518-0037-4D5A-8BEC-E4DD0E50FB19}"

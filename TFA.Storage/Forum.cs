@@ -8,8 +8,8 @@ public class Forum
     [Key]
     public Guid ForumId { get; set; }
 
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
     [InverseProperty(nameof(Topic.Forum))]
-    public ICollection<Topic> Topics { get; set; }
+    public required ICollection<Topic> Topics { get; set; }
 }

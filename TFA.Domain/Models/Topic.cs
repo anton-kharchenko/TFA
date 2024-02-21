@@ -6,7 +6,7 @@ public class Topic
 
     public Guid ForumId { get; set; }
     
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 

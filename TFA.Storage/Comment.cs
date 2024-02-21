@@ -19,10 +19,10 @@ public class Comment
     public Guid TopicId { get; set; }
     
     [ForeignKey(nameof(UserId))]
-    public User Author { get; set; }
+    public required User Author { get; set; }
     
     [ForeignKey(nameof(TopicId))]
-    public Topic Topic { get; set; }
+    public required Topic Topic { get; set; }
 
     public Guid ForumId { get; set; }
 }

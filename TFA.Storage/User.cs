@@ -9,11 +9,11 @@ public class User
     public Guid UserId { get; set; }
 
     [MaxLength(20)]
-    public string Login { get; set; }
+    public required string Login { get; set; }
 
     [InverseProperty(nameof(Topic.Author))]
-    public ICollection<Topic> Topics { get; set; }
+    public required ICollection<Topic> Topics { get; set; }
     
     [InverseProperty(nameof(Comment.Author))] 
-    public ICollection<Comment> Comments { get; set; }
+    public required ICollection<Comment> Comments { get; set; }
 }

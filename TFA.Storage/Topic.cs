@@ -16,14 +16,11 @@ public class Topic
 
     public Guid ForumId { get; set; }
 
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
-    [ForeignKey(nameof(UserId))]
-    public User Author { get; set; }
-    
-    [ForeignKey(nameof(UserId))]
-    public Forum Forum { get; set; }
+    [ForeignKey(nameof(UserId))] public User Author { get; set; } = default!;
 
-    [InverseProperty(nameof(Comment.Topic))]
-    public ICollection<Comment> Comments { get; set; }
+    [ForeignKey(nameof(UserId))] public Forum Forum { get; set; } = default!;
+
+    [InverseProperty(nameof(Comment.Topic))] public ICollection<Comment> Comments { get; set; } = default!;
 }
