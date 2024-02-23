@@ -9,10 +9,9 @@ using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.UseCases.CreateTopic;
-using TFA.Domain.Validations.CreateTopic;
 using Topic = TFA.Domain.Models.Topic;
 
-namespace TFA.Domain.Tests;
+namespace TFA.Domain.Tests.CreateTopic;
 
 public class CreateTopicUseCaseShould
 {

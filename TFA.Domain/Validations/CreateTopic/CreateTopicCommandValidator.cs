@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using TFA.Domain.Commands.CreateTopic;
+using TFA.Domain.Keys;
 
 namespace TFA.Domain.Validations.CreateTopic;
 
@@ -7,9 +8,9 @@ internal class CreateTopicCommandValidator : AbstractValidator<CreateTopicComman
 {
     public CreateTopicCommandValidator()
     {
-        RuleFor(c => c.ForumId).NotEmpty().WithErrorCode("Empty");
+        RuleFor(c => c.ForumId).NotEmpty().WithErrorCode(ValidationErrorCodeKeys.Empty);
         RuleFor(c => c.Title).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithErrorCode("Empty")
-            .MaximumLength(100).WithErrorCode("TooLong");
+            .NotEmpty().WithErrorCode(ValidationErrorCodeKeys.Empty)
+            .MaximumLength(100).WithErrorCode(ValidationErrorCodeKeys.TooLong);
     }
 }

@@ -2,7 +2,7 @@
 using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Validations.CreateTopic;
 
-namespace TFA.Domain.Tests;
+namespace TFA.Domain.Tests.CreateTopic;
 
 public class CreateTopicCommandValidatorShould
 {

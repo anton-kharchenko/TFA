@@ -1,7 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=abfffa82_002Dca11_002D477f_002D8e43_002Dbc737449a468/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ThrowFoundNotFoundException_WhenNoMatchingForum" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::2CAF5CA5-C580-4FBB-B61B-9710BB427EEF::net8.0::TFA.Domain.Tests.CreateTopicUseCaseShould&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::2CAF5CA5-C580-4FBB-B61B-9710BB427EEF::net8.0::TFA.Domain.Tests.CreateTopicCommandValidatorShould&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2CAF5CA5-C580-4FBB-B61B-9710BB427EEF::net8.0::TFA.Domain.Tests.GetTopic.GetTopicValidatorShould&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
