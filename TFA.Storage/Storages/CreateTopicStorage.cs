@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Storage.Helpers;
 
@@ -9,9 +10,7 @@ internal class CreateTopicStorage(
     IMomentProvider momentProvider,
     ForumDbContext dbContext) : ICreateTopicStorage
 {
-    public async Task<bool> ForumExistsAsync(Guid forumId, CancellationToken cancellationToken) =>
-        await dbContext.Forums.AnyAsync(i => i.ForumId == forumId, cancellationToken: cancellationToken);
-
+    
     public async Task<Domain.Models.Topic> CreateTopicAsync(Guid forumId, Guid userId, string title, CancellationToken cancellationToken)
     {
         var topicId = guidFactory.Create();

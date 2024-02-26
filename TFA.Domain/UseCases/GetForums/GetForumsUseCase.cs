@@ -5,6 +5,6 @@ namespace TFA.Domain.UseCases.GetForums;
 
 public class GetForumsUseCase(IGetForumsStorage getForumsStorage) : IGetForumsUseCase
 {
-    public async Task<IEnumerable<Forum>> ExecuteAsync(CancellationToken cancellationToken) =>
+    public async Task<IEnumerable<Forum>?> ExecuteAsync(CancellationToken cancellationToken) =>
         await getForumsStorage.GetForumsAsync(cancellationToken);
 }

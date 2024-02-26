@@ -4,5 +4,5 @@ namespace TFA.Domain.Interfaces.UseCases.GetForums;
 
 public interface IGetForumsUseCase
 {
-    Task<IEnumerable<Forum>> ExecuteAsync(CancellationToken cancellationToken);
+    Task<IEnumerable<Forum>?> ExecuteAsync(CancellationToken cancellationToken);
 }
