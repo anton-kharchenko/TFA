@@ -24,5 +24,7 @@ public static class ServiceCollectionExtensions
         {
             opt.UseNpgsql(connectionString);
         });
+
+        services.AddMemoryCache();
     }
 }
