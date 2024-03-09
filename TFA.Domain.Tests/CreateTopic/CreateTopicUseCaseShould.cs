@@ -7,7 +7,7 @@ using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
-using TFA.Domain.Interfaces.Storages;
+using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.UseCases.CreateTopic;
 using Topic = TFA.Domain.Models.Topic;
 

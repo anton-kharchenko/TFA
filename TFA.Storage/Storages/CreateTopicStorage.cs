@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.Storages;
+using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Storage.Helpers;
 
 namespace TFA.Storage.Storages;

@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace TFA.E2E;
 
-public class ForumEndpointsShould(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
+public class ForumEndpointsShould(ForumApiApplicationFactory factory) : IClassFixture<ForumApiApplicationFactory>
 {
     
     [Fact]

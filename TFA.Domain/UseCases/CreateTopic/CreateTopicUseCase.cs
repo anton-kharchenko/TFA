@@ -6,6 +6,7 @@ using TFA.Domain.Extensions.UseCases;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages;
+using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 

@@ -57,4 +57,19 @@ public class ForumController : ControllerBase
 
         return Ok(new {resources, totalCount});
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateForum(
+        [FromBody] CreateForumRequest request,
+        [FromServices] ICreateForumUseCase useCase,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateForumCommand(request.Title);
+        var forum = useCase.ExecuteAsync(command, cancellationToken);
+        return CreatedAtRoute(nameof(GetForums), new Forum()
+        {
+            Id = forum.Id,
+            Title = forum.Title
+        });
+    }
 }
