@@ -2,5 +2,5 @@
 
 public interface ICreateForumStorage
 {
-    
+    public Task<Models.Forum> Create(string title, CancellationToken cancellationToken);
 }
