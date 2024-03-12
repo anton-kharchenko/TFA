@@ -4,13 +4,11 @@ namespace TFA.Storage;
 
 public class ForumDbContext(DbContextOptions<ForumDbContext> options) : DbContext(options)
 {
-    public  DbSet<User>? Users { get; set; }
+    public  DbSet<User> Users { get; set; } = null!;
     
-    public  DbSet<Forum>? Forums { get; set; }
-    
-    public  DbSet<Topic>? Topics { get; set; }
+    public  DbSet<Forum> Forums { get; set; } = null!;
+
+    public DbSet<Topic> Topics { get; set; } = null!;
     
     public  DbSet<Comment>? Comments { get; set; }
-    
-    
 }

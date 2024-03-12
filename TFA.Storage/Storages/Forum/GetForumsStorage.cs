@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 
-namespace TFA.Storage.Storages;
+namespace TFA.Storage.Storages.Forum;
 
 internal class GetForumsStorage(ForumDbContext dbContext, IMemoryCache memoryCache) : IGetForumsStorage
 {
@@ -12,7 +12,7 @@ internal class GetForumsStorage(ForumDbContext dbContext, IMemoryCache memoryCac
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
 
-            return dbContext.Forums.Select(i => new Domain.Models.Forum
+            return dbContext.Forums!.Select(i => new Domain.Models.Forum
             {
                 Id = i.ForumId,
                 Title = i.Title

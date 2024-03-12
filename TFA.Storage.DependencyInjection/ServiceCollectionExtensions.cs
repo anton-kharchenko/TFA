@@ -5,6 +5,8 @@ using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Storage.Helpers;
 using TFA.Storage.Storages;
+using TFA.Storage.Storages.Forum;
+using TFA.Storage.Storages.Topic;
 
 namespace TFA.Storage.DependencyInjection;
 
