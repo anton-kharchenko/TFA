@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtensions
     {
         services
          .AddScoped<ICreateTopicStorage, CreateTopicStorage>()
+         .AddScoped<ICreateForumStorage, CreateForumStorage>()
          .AddScoped<IGetForumsStorage, GetForumsStorage>()
          .AddScoped<IGetTopicsStorage, GetTopicStorage>();
             

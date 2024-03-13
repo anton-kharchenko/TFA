@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 
-namespace TFA.Storage.Storages;
+namespace TFA.Storage.Storages.Topic;
 
 internal class GetTopicStorage(ForumDbContext dbContext) : IGetTopicsStorage
 {

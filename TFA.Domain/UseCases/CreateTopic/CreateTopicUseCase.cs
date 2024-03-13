@@ -1,18 +1,16 @@
 ﻿using FluentValidation;
 using TFA.Domain.Commands.CreateTopic;
-using TFA.Domain.Exceptions;
 using TFA.Domain.Extensions;
 using TFA.Domain.Extensions.UseCases;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
-using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 
 namespace TFA.Domain.UseCases.CreateTopic;
 
-internal class CreateTopicUseCase(
+public class CreateTopicUseCase(
  IIntentionManager intentionManager,
  ICreateTopicStorage storage, 
  IIdentityProvider identityProvider,

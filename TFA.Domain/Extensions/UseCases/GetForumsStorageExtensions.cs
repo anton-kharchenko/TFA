@@ -3,7 +3,7 @@ using TFA.Domain.Interfaces.UseCases.GetForums;
 
 namespace TFA.Domain.Extensions.UseCases;
 
-internal static class GetForumsStorageExtensions
+public static class GetForumsStorageExtensions
 {
     public static async Task<bool> ForumExistsAsync(this IGetForumsStorage storage, Guid forumId, CancellationToken cancellationToken)
     {

@@ -9,7 +9,7 @@ using TFA.Domain.Models;
 
 namespace TFA.Domain.UseCases.CreateForum;
 
-public class CreateForumUseCase(
+internal class CreateForumUseCase(
     IValidator<CreateForumCommand> validator,
     IIntentionManager intentionManager,
     ICreateForumStorage storage) : ICreateForumUseCase

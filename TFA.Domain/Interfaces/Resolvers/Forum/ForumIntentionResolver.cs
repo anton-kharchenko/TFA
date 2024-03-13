@@ -5,7 +5,7 @@ using TFA.Domain.Interfaces.Authorization;
 
 namespace TFA.Domain.Interfaces.Resolvers.Forum;
 
-public class ForumIntentionResolver : IIntentionResolver<ForumIntention>
+internal class ForumIntentionResolver : IIntentionResolver<ForumIntention>
 {
     public bool IsAllowed(IIdentity identity, ForumIntention intention)
     {

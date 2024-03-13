@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TFA.Api.Requests;
 using TFA.Api.Responses;
+using TFA.Domain.Commands.CreateForum;
 using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Commands.GetTopics;
+using TFA.Domain.Interfaces.UseCases.CreateForum;
 using TFA.Domain.Interfaces.UseCases.CreateTopic;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using Forum = TFA.Api.Models.Forum;
@@ -59,14 +61,19 @@ public class ForumController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(403)]
+    [ProducesResponseType(410)]
+    [ProducesResponseType(201, Type = typeof(Forum))]
     public async Task<IActionResult> CreateForum(
         [FromBody] CreateForumRequest request,
         [FromServices] ICreateForumUseCase useCase,
         CancellationToken cancellationToken)
     {
         var command = new CreateForumCommand(request.Title);
-        var forum = useCase.ExecuteAsync(command, cancellationToken);
-        return CreatedAtRoute(nameof(GetForums), new Forum()
+        
+        var forum = await useCase.ExecuteAsync(command, cancellationToken);
+        
+        return CreatedAtRoute(nameof(GetForums), new Forum
         {
             Id = forum.Id,
             Title = forum.Title

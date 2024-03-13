@@ -11,5 +11,5 @@ public class Forum
     public required string Title { get; set; }
 
     [InverseProperty(nameof(Topic.Forum))]
-    public required ICollection<Topic> Topics { get; set; }
+     public ICollection<Topic> Topics { get; set; } = null!;
 }
