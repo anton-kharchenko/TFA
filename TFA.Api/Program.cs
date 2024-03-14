@@ -1,5 +1,7 @@
+using AutoMapper;
 using Serilog;
 using Serilog.Filters;
+using TFA.Api.Mappings;
 using TFA.Api.Middlewares;
 using TFA.Domain.DependencyInjection;
 using TFA.Storage.DependencyInjection;
@@ -17,6 +19,7 @@ builder.Services.AddLogging(b => b.AddSerilog(new LoggerConfiguration()
 
 builder.Services.AddForumDomain();
 builder.Services.AddForumStorages(builder.Configuration.GetConnectionString("Postgres"));
+builder.Services.AddAutoMapper(config => config.AddProfile<ApiProfile>());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -24,6 +27,8 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+var mapper = app.Services.GetRequiredService<IMapper>();
+mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 if (app.Environment.IsDevelopment())
 {

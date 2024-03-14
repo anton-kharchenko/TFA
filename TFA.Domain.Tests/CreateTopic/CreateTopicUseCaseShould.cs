@@ -43,7 +43,7 @@ public class CreateTopicUseCaseShould
         validator.Setup(i => i.ValidateAsync(It.IsAny<CreateTopicCommand>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new ValidationResult());
         
-        sut = new CreateTopicUseCase(_intentionManager.Object, storage.Object, identityProvider.Object, validator.Object);
+        sut = new CreateTopicUseCase(_intentionManager.Object, storage.Object, identityProvider.Object, , validator.Object);
     }
 
     [Fact]

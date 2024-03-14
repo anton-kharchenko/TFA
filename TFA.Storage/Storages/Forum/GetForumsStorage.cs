@@ -1,10 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.UseCases.GetForums;
+using TFA.Storage.DB;
 
 namespace TFA.Storage.Storages.Forum;
 
-internal class GetForumsStorage(ForumDbContext dbContext, IMemoryCache memoryCache) : IGetForumsStorage
+internal class GetForumsStorage(
+    ForumDbContext dbContext,
+    IMemoryCache memoryCache,
+    IMapper mapper) : IGetForumsStorage
 {
     public async Task<IEnumerable<Domain.Models.Forum>> GetForumsAsync(CancellationToken cancellationToken)
     {
@@ -12,12 +18,10 @@ internal class GetForumsStorage(ForumDbContext dbContext, IMemoryCache memoryCac
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
 
-            return dbContext.Forums!.Select(i => new Domain.Models.Forum
-            {
-                Id = i.ForumId,
-                Title = i.Title
-            }).ToArrayAsync(cancellationToken);
-
+            return dbContext
+                .Forums
+                .ProjectTo<Domain.Models.Forum>(mapper.ConfigurationProvider)
+                .ToArrayAsync(cancellationToken);
         }))!;
     }
 }

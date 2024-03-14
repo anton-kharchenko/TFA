@@ -2,7 +2,7 @@
 
 namespace TFA.Domain.Interfaces.UseCases.GetForums;
 
-internal interface IGetForumsUseCase
+public interface IGetForumsUseCase
 {
     Task<IEnumerable<Forum>?> ExecuteAsync(CancellationToken cancellationToken);
 }

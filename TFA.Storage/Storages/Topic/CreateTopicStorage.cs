@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Interfaces.Storages.Topic;
+using TFA.Storage.DB;
 using TFA.Storage.Helpers;
 
 namespace TFA.Storage.Storages.Topic;
@@ -21,7 +22,7 @@ internal class CreateTopicStorage(
         CancellationToken cancellationToken)
     {
         var topicId = guidFactory.Create();
-        var topic = new Storage.Topic
+        var topic = new Models.Topic
         {
             TopicId = topicId,
             ForumId = forumId,
@@ -30,7 +31,7 @@ internal class CreateTopicStorage(
             CreatedAt = momentProvider.Now
         };
 
-        await dbContext.Topics.AddAsync(topic, cancellationToken);
+        await dbContext.Topics!.AddAsync(topic, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return await dbContext.Topics

@@ -1,6 +1,6 @@
-﻿namespace TFA.Api.Models;
+﻿namespace TFA.Api.Responses;
 
-public class Forum
+public class ForumResponse
 {
     public Guid Id { get; set; }
 

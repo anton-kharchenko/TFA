@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.Storages.Forum;
+using TFA.Storage.DB;
 using TFA.Storage.Helpers;
 
 namespace TFA.Storage.Storages.Forum;
@@ -8,17 +11,18 @@ namespace TFA.Storage.Storages.Forum;
 internal class CreateForumStorage(
     IGuidFactory guidFactory,
     ForumDbContext forumDbContext,
-    IMemoryCache memoryCache) : ICreateForumStorage
+    IMemoryCache memoryCache,
+    IMapper mapper) : ICreateForumStorage
 {
     public async Task<Domain.Models.Forum> Create(string title, CancellationToken cancellationToken)
     {
-        var forum = new Storage.Forum
+        var forum = new Models.Forum
         {
             ForumId = guidFactory.Create(),
             Title = title
         };
 
-        await forumDbContext.Forums.AddAsync(forum, cancellationToken);
+        await forumDbContext.Forums!.AddAsync(forum, cancellationToken);
         await forumDbContext.SaveChangesAsync(cancellationToken);
 
         memoryCache.Remove(nameof(GetForumsStorage.GetForumsAsync));
@@ -26,11 +30,7 @@ internal class CreateForumStorage(
         return await forumDbContext
             .Forums
             .Where(f => f.ForumId == forum.ForumId)
-            .Select(f => new Domain.Models.Forum
-            {
-                Title = f.Title,
-                Id = f.ForumId
-            })
+            .ProjectTo<Domain.Models.Forum>(mapper.ConfigurationProvider)
             .FirstAsync(cancellationToken);
     }
 }

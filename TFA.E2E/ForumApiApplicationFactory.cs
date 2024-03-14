@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Testcontainers.PostgreSql;
 using TFA.Storage;
+using TFA.Storage.DB;
 
 namespace TFA.E2E;
 
