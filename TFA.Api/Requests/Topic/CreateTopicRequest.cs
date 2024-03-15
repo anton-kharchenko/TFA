@@ -1,4 +1,4 @@
-﻿namespace TFA.Api.Requests;
+﻿namespace TFA.Api.Requests.Topic;
 
 public class CreateTopicRequest
 {

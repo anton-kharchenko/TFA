@@ -18,7 +18,7 @@ public class ForumEndpointsShould(ForumApiApplicationFactory factory) : IClassFi
         var initialForums = await getInitialForumsResponse.Content.ReadFromJsonAsync<Forum[]>();
         initialForums
             .Should().NotBeNull().And
-            .Subject.As<Forum[]>().Should().NotContain(f => f.Title.Equals(forumTitle));
+            .Subject.As<Forum[]>().Should().NotContain(f => f.Title!.Equals(forumTitle));
 
         using var response = await httpClient.PostAsync("forums",
             JsonContent.Create(new { title = forumTitle }));
@@ -33,6 +33,6 @@ public class ForumEndpointsShould(ForumApiApplicationFactory factory) : IClassFi
         var forums = await getForumsResponse.Content.ReadFromJsonAsync<Forum[]>();
         forums
             .Should().NotBeNull().And
-            .Subject.As<Forum[]>().Should().Contain(f => f.Title.Equals(forumTitle));
+            .Subject.As<Forum[]>().Should().Contain(f => f.Title!.Equals(forumTitle));
     }
 }
