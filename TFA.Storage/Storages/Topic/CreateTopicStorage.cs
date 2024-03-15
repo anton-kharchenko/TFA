@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Interfaces.Storages.Topic;
-using TFA.Storage.DB;
+using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
 
 namespace TFA.Storage.Storages.Topic;

@@ -31,7 +31,9 @@ public static class ServiceCollectionExtensions
            
         services
             .AddScoped<IIntentionManager, IntentionManager>()
-            .AddScoped<IIdentityProvider, IdentityProvider>();   
+            .AddScoped<IIdentityProvider, IdentityProvider>();
+
+        services.AddMemoryCache();      
             
         services.AddValidatorsFromAssemblyContaining<Forum>();    
     }

@@ -5,7 +5,7 @@ namespace TFA.Domain.Extensions.UseCases;
 
 public static class GetForumsStorageExtensions
 {
-    public static async Task<bool> ForumExistsAsync(this IGetForumsStorage storage, Guid forumId, CancellationToken cancellationToken)
+    private static async Task<bool> ForumExistsAsync(this IGetForumsStorage storage, Guid forumId, CancellationToken cancellationToken)
     {
       var forums =  await storage.GetForumsAsync(cancellationToken);
       return forums.Any(f => f.Id == forumId);

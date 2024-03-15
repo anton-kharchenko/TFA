@@ -5,7 +5,7 @@ using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
-using TFA.Storage.DB;
+using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
 using TFA.Storage.Storages.Forum;
 using TFA.Storage.Storages.Topic;
