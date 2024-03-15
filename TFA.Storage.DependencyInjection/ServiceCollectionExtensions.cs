@@ -25,13 +25,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IGuidFactory, GuidFactory>();
         services.AddScoped<IMomentProvider, MomentProvider>();
 
-        services.AddDbContextPool<ForumDbContext>(opt =>
-        {
-            opt.UseNpgsql(connectionString);
-        });
+        services.AddDbContextPool<ForumDbContext>(opt => { opt.UseNpgsql(connectionString); });
 
         services.AddMemoryCache();
-        services.AddAutoMapper(config =>
-            config.AddMaps(Assembly.GetAssembly(typeof(ForumDbContext))));
+        services.AddAutoMapper(config => config.AddMaps(Assembly.GetExecutingAssembly()));
     }
 }

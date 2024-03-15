@@ -9,31 +9,30 @@ public class ForumEndpointsShould(ForumApiApplicationFactory factory) : IClassFi
     [Fact]
     public async Task CreateNewForum()
     {
+        const string forumTitle = "0069517D-CA29-453B-BB4C-AC22F51E690E";
+
         using var httpClient = factory.CreateClient();
-        using var postForumResponse = await httpClient
-            .PostAsync("forums", JsonContent.Create(new { title = "test" }));
 
-        postForumResponse
-            .Invoking(r => r.EnsureSuccessStatusCode())
-            .Should()
-            .NotThrow();
+        using var getInitialForumsResponse = await httpClient.GetAsync("forums");
+        getInitialForumsResponse.IsSuccessStatusCode.Should().BeTrue();
+        var initialForums = await getInitialForumsResponse.Content.ReadFromJsonAsync<Forum[]>();
+        initialForums
+            .Should().NotBeNull().And
+            .Subject.As<Forum[]>().Should().NotContain(f => f.Title.Equals(forumTitle));
 
-        using var getForumResponse = await httpClient
-            .GetAsync("forums");
+        using var response = await httpClient.PostAsync("forums",
+            JsonContent.Create(new { title = forumTitle }));
 
-        var forum = await getForumResponse
-            .Content
-            .ReadFromJsonAsync<Forum>();
+        response.IsSuccessStatusCode.Should().BeTrue();
+        var forum = await response.Content.ReadFromJsonAsync<Forum>();
+        forum
+            .Should().NotBeNull().And
+            .Subject.As<Forum>().Title.Should().Be(forumTitle);
 
-        forum.Should().NotBeNull()
-            .And.Subject.As<Forum>().Should().Be("Test");
-
-        forum!.Id.Should().NotBeEmpty();    
-
-        var forums = await getForumResponse
-            .Content
-            .ReadFromJsonAsync<Forum[]>();
-
-        forums.Should().NotBeNull().And.Subject.As<Forum[]>().Should().Contain(f => f.Title == "");
+        using var getForumsResponse = await httpClient.GetAsync("forums");
+        var forums = await getForumsResponse.Content.ReadFromJsonAsync<Forum[]>();
+        forums
+            .Should().NotBeNull().And
+            .Subject.As<Forum[]>().Should().Contain(f => f.Title.Equals(forumTitle));
     }
 }
