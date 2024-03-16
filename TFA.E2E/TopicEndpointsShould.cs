@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
-using TFA.Api.Requests;
 using TFA.Api.Requests.Forum;
 
 namespace TFA.E2E;
@@ -9,8 +8,6 @@ namespace TFA.E2E;
 public class TopicEndpointsShould(ForumApiApplicationFactory factory)
     : IClassFixture<ForumApiApplicationFactory>, IAsyncLifetime
 {
-    private readonly Guid forumId = new Guid();
-
     private const string ForumTitle = "Forum Title";
 
     public Task InitializeAsync() => Task.CompletedTask;
