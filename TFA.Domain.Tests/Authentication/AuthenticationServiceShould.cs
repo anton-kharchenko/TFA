@@ -21,7 +21,7 @@ public class AuthenticationServiceShould
         _storage = new Mock<IAuthenticationStorage>();
         _findUserSetup = _storage.Setup(s => s.FindUserAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()));
 
-        var securityManager = new Mock<SecurityManager>();
+        var securityManager = new Mock<PasswordManager>();
         securityManager.Setup(s => s.ComparePasswords(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
             .Returns(true);
 
@@ -72,7 +72,7 @@ public class AuthenticationServiceShould
     {
         var password = "Nushiba";
 
-        var securityManager = new SecurityManager();
+        var securityManager = new PasswordManager();
         var (salt, hash) = securityManager.GeneratePasswordParts(password);
 
         _findUserSetup.ReturnsAsync(new RecognisedUser()

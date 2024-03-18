@@ -2,7 +2,7 @@
 
 public class AuthenticationConfiguration
 {
-    public required string Key { get; set; }   
-    
-    public required string Iv { get; set; }   
+    public required string Base64Key { get; set; }
+
+    public IEnumerable<byte> Key => Convert.FromBase64String(Base64Key);
 }
