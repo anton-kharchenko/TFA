@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Authentication;
 using TFA.Domain.Interfaces.Authentication;
+using TFA.Domain.Share;
 using TFA.Storage.Configurations;
 
 namespace TFA.Storage.Interfaces;

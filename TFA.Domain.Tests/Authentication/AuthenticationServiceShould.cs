@@ -6,6 +6,7 @@ using Moq.Language.Flow;
 using TFA.Domain.Authentication;
 using TFA.Domain.Configurations;
 using TFA.Domain.Interfaces.Authentication;
+using TFA.Domain.Share;
 
 namespace TFA.Domain.Tests.Authentication;
 

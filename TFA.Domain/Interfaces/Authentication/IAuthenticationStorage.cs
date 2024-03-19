@@ -1,4 +1,5 @@
 ﻿using TFA.Domain.Authentication;
+using TFA.Domain.Share;
 
 namespace TFA.Domain.Interfaces.Authentication;
 
