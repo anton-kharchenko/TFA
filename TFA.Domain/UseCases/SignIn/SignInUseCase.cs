@@ -1,4 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Options;
+using TFA.Domain.Authentication;
+using TFA.Domain.Configurations;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.UseCases.SignIn;
 
@@ -8,9 +11,11 @@ internal class SignInUseCase(
     IValidator<SignInCommand> validator,
     ISignInStorage storage,
     IPasswordManager passwordManager,
-    ISymmetricEncryptor encryptor) : ISignInUseCase
+    ISymmetricEncryptor encryptor,
+    IOptions<AuthenticationConfiguration> options) : ISignInUseCase
 {
-    public async Task<(IIdentity identity, string token)> ExecuteAsync(SignInCommand command, CancellationToken cancellationToken)
+    public async Task<(IIdentity identity, string token)> ExecuteAsync(SignInCommand command,
+        CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(command, cancellationToken);
 
@@ -28,6 +33,8 @@ internal class SignInUseCase(
             throw new Exception();
         }
 
-        encryptor.EncryptAsync(recognisedUser.UserId.ToString(), );
+        var token = await encryptor.EncryptAsync(recognisedUser.UserId.ToString(), options.Value.Key, cancellationToken);
+
+        return (new User(recognisedUser.UserId), token);
     }
 }

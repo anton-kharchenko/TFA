@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using TFA.Domain.Keys;
-using TFA.Domain.UseCases.SignIn;
+using TFA.Domain.UseCases.SignOn;
 
-namespace TFA.Domain.Validations.SignIn;
+namespace TFA.Domain.Validations.SignOn;
 
-internal class SignInCommandValidator : AbstractValidator<SignInCommand>
+internal class SignOnCommandValidator  : AbstractValidator<SignOnCommand>
 {
-    public SignInCommandValidator()
+    public SignOnCommandValidator()
     {
         RuleFor(c => c.Login).Cascade(CascadeMode.Stop)
             .NotEmpty().WithErrorCode(ValidationErrorCodeKeys.Empty);
