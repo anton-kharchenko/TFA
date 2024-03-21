@@ -14,9 +14,9 @@ internal class AuthenticationService(
     public async  Task<IIdentity> AuthenticateAsync(string authToken, CancellationToken cancellationToken)
     {
         configuration = authenticationConfiguration.Value;
-        
+
         var userId = await symmetricDecryptor.DecryptAsync(authToken, configuration.Key, cancellationToken);
-        
+
         // TODO: verify user id
         return new User(Guid.Parse(userId));
     }
