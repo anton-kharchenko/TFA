@@ -1,13 +1,17 @@
 using AutoMapper;
+using TFA.Api.Authentication;
 using TFA.Api.Extensions;
 using TFA.Api.Mappings;
 using TFA.Api.Middlewares;
+using TFA.Domain.Configurations;
 using TFA.Domain.DependencyInjection;
 using TFA.Storage.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApiLogging(builder.Configuration, builder.Environment);
+builder.Services.Configure<AuthenticationConfiguration>(builder.Configuration.GetSection("Authentication").Bind);
+builder.Services.AddScoped<ITokenStorage, AuthenticationTokenStorage>();
 
 builder.Services.AddForumDomain();
 builder.Services.AddForumStorages(builder.Configuration.GetConnectionString("Postgres"));

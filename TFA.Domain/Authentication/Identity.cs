@@ -2,7 +2,9 @@
 
 namespace TFA.Domain.Authentication;
 
-internal class User(Guid userId) : IIdentity
+public class User(Guid userId) : IIdentity
 {
     public Guid UserId { get; } = userId;
+
+    public static User Guest => new(Guid.Empty);
 }

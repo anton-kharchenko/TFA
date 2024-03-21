@@ -5,9 +5,13 @@ using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
+using TFA.Domain.Interfaces.UseCases.SignIn;
+using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
 using TFA.Storage.Storages.Forum;
+using TFA.Storage.Storages.SignIn;
+using TFA.Storage.Storages.SignOn;
 using TFA.Storage.Storages.Topic;
 
 namespace TFA.Storage.DependencyInjection;
@@ -20,7 +24,9 @@ public static class ServiceCollectionExtensions
             .AddScoped<ICreateTopicStorage, CreateTopicStorage>()
             .AddScoped<ICreateForumStorage, CreateForumStorage>()
             .AddScoped<IGetForumsStorage, GetForumsStorage>()
-            .AddScoped<IGetTopicsStorage, GetTopicStorage>();
+            .AddScoped<IGetTopicsStorage, GetTopicStorage>()
+            .AddScoped<ISignInStorage, SignInStorage>()
+            .AddScoped<ISignOnStorage, SignOnStorage>();
 
         services.AddScoped<IGuidFactory, GuidFactory>();
         services.AddScoped<IMomentProvider, MomentProvider>();

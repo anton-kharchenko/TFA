@@ -4,7 +4,7 @@ using TFA.Domain.Interfaces.Authentication;
 
 namespace TFA.Domain.Authentication;
 
-internal class AesSymmetricEncryptor : ISymmetricEncryptor, ISymmetricDecryptor
+internal class AesSymmetricEncryptorDecryptor : ISymmetricEncryptor, ISymmetricDecryptor
 {
     private const int IvSize = 16;
     private readonly Lazy<Aes> aes = new(Aes.Create);
