@@ -38,13 +38,13 @@ public static class ServiceCollectionExtensions
             .AddScoped<ISymmetricDecryptor, AesSymmetricEncryptorDecryptor>()
             .AddScoped<ISymmetricEncryptor, AesSymmetricEncryptorDecryptor>()
             .AddScoped<IPasswordManager, PasswordManager>();
-           
+
         services
             .AddScoped<IIntentionManager, IntentionManager>()
             .AddScoped<IIdentityProvider, IdentityProvider>();
 
-        services.AddMemoryCache();      
-            
-        services.AddValidatorsFromAssemblyContaining<Forum>();    
+        services.AddMemoryCache();
+
+        services.AddValidatorsFromAssemblyContaining<Forum>();
     }
 }

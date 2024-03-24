@@ -11,7 +11,7 @@ public class GetTopicValidatorShould
     [Fact]
     public void ReturnSuccess_WhenQueryIsValid()
     {
-        var getTopicsQuery = new GetTopicsQuery(Guid.Parse("123cce62-3af1-456b-bb07-8d22a4d9b343"), 
+        var getTopicsQuery = new GetTopicsQuery(Guid.Parse("123cce62-3af1-456b-bb07-8d22a4d9b343"),
             10,
             5);
         sut.Validate(getTopicsQuery).IsValid.Should().BeTrue();

@@ -5,13 +5,12 @@ namespace TFA.Storage.Models;
 
 public class Topic
 {
-    [Key]
-    public Guid TopicId { get; set; }
-    
+    [Key] public Guid TopicId { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
-    
+
     public DateTimeOffset? UpdatedAt { get; set; }
-    
+
     public Guid UserId { get; set; }
 
     public Guid ForumId { get; set; }
@@ -22,5 +21,6 @@ public class Topic
 
     [ForeignKey(nameof(UserId))] public Forum Forum { get; set; } = default!;
 
-    [InverseProperty(nameof(Comment.Topic))] public ICollection<Comment> Comments { get; set; } = default!;
+    [InverseProperty(nameof(Comment.Topic))]
+    public ICollection<Comment> Comments { get; set; } = default!;
 }

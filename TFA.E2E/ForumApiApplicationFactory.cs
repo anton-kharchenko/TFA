@@ -8,9 +8,10 @@ using TFA.Storage.Configurations;
 
 namespace TFA.E2E;
 
-public class ForumApiApplicationFactory  : WebApplicationFactory<Program>, IAsyncLifetime
+public class ForumApiApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _dbContainer =  new PostgreSqlBuilder().Build();
+    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder().Build();
+
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
@@ -19,18 +20,21 @@ public class ForumApiApplicationFactory  : WebApplicationFactory<Program>, IAsyn
         await forumDbContext.Database.MigrateAsync();
     }
 
+    public new async Task DisposeAsync()
+    {
+        await _dbContainer.DisposeAsync();
+    }
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string>
             {
-                ["ConnectionStrings:Postgres"] = _dbContainer.GetConnectionString(),
+                ["ConnectionStrings:Postgres"] = _dbContainer.GetConnectionString()
                 ["Authentication:Base64Key"] = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
             }!)
             .Build();
         builder.UseConfiguration(configuration);
         base.ConfigureWebHost(builder);
     }
-
-    public new async Task DisposeAsync() => await _dbContainer.DisposeAsync();
 }

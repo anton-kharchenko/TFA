@@ -5,7 +5,6 @@ using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Storage.Configurations;
 
-
 namespace TFA.Storage.Storages.Forum;
 
 internal class GetForumsStorage(

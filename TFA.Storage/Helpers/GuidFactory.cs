@@ -2,5 +2,8 @@
 
 public class GuidFactory : IGuidFactory
 {
-    public Guid Create() => Guid.NewGuid();
+    public Guid Create()
+    {
+        return Guid.NewGuid();
+    }
 }

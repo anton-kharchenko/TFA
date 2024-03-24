@@ -10,9 +10,15 @@ public class TopicEndpointsShould(ForumApiApplicationFactory factory)
 {
     private const string ForumTitle = "Forum Title";
 
-    public Task InitializeAsync() => Task.CompletedTask;
+    public Task InitializeAsync()
+    {
+        return Task.CompletedTask;
+    }
 
-    public Task DisposeAsync() => Task.CompletedTask;
+    public Task DisposeAsync()
+    {
+        return Task.CompletedTask;
+    }
 
     [Fact]
     public async Task ReturnForbidden_WhenNotAuthenticated()
@@ -21,12 +27,12 @@ public class TopicEndpointsShould(ForumApiApplicationFactory factory)
 
         using var forum = await httpClient.PostAsync("forums",
             JsonContent.Create(new { title = ForumTitle }));
-            
+
         forum.EnsureSuccessStatusCode();
 
-       var createdForumRequest = await forum.Content.ReadFromJsonAsync<CreateForumRequest>();
-       createdForumRequest.Should().NotBeNull();
-        
+        var createdForumRequest = await forum.Content.ReadFromJsonAsync<CreateForumRequest>();
+        createdForumRequest.Should().NotBeNull();
+
         var topics = await httpClient.PostAsync($"forums/{createdForumRequest!.Id}/topics",
             JsonContent.Create(new { title = "hello world" }));
 

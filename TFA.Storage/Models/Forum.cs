@@ -5,12 +5,9 @@ namespace TFA.Storage.Models;
 
 public class Forum
 {
-    [Key]
-    public Guid ForumId { get; set; }
-    
-    [MaxLength(50)]
-    public required string Title { get; set; }
+    [Key] public Guid ForumId { get; set; }
 
-    [InverseProperty(nameof(Topic.Forum))]
-     public ICollection<Topic> Topics { get; set; } = null!;
+    [MaxLength(50)] public required string Title { get; set; }
+
+    [InverseProperty(nameof(Topic.Forum))] public ICollection<Topic> Topics { get; set; } = null!;
 }

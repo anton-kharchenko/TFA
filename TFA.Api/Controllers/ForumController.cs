@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using TFA.Api.Requests;
 using TFA.Api.Requests.Forum;
 using TFA.Api.Requests.Topic;
 using TFA.Api.Responses;

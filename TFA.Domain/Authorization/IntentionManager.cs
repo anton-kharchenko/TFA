@@ -3,7 +3,8 @@ using TFA.Domain.Interfaces.Authorization;
 
 namespace TFA.Domain.Authorization;
 
-internal class IntentionManager(IEnumerable<IIntentionResolver> resolvers, IIdentityProvider identityProvider) : IIntentionManager
+internal class IntentionManager(IEnumerable<IIntentionResolver> resolvers, IIdentityProvider identityProvider)
+    : IIntentionManager
 {
     public bool IsAllowed<TIntention>(TIntention intention) where TIntention : struct
     {

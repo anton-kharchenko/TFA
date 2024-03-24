@@ -5,7 +5,9 @@ namespace TFA.Storage.Mappings;
 
 internal class TopicProfile : Profile
 {
-    public TopicProfile() =>
+    public TopicProfile()
+    {
         CreateMap<Topic, Domain.Models.Topic>()
             .ForMember(d => d.Id, s => s.MapFrom(f => f.ForumId));
+    }
 }

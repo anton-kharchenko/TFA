@@ -4,9 +4,9 @@ using TFA.Domain.Keys;
 
 namespace TFA.Domain.Validations.CreateForum;
 
-public class CreateCommandValidator : AbstractValidator<CreateForumCommand>
+public class CreateForumCommandValidator : AbstractValidator<CreateForumCommand>
 {
-    public CreateCommandValidator()
+    public CreateForumCommandValidator()
     {
         RuleFor(c => c.Title)
             .NotEmpty()

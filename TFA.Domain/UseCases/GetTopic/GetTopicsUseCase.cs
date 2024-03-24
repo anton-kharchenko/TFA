@@ -7,9 +7,13 @@ using TFA.Domain.Models;
 
 namespace TFA.Domain.UseCases.GetTopic;
 
-internal class GetTopicsUseCase(IValidator<GetTopicsQuery> validator, IGetTopicsStorage storage, IGetForumsStorage getTopicsStorage) : IGetTopicsUseCase
+internal class GetTopicsUseCase(
+    IValidator<GetTopicsQuery> validator,
+    IGetTopicsStorage storage,
+    IGetForumsStorage getTopicsStorage) : IGetTopicsUseCase
 {
-    public async Task<(IEnumerable<Topic> resources, int totalCount)> ExecuteAsync(GetTopicsQuery query, CancellationToken cancellationToken)
+    public async Task<(IEnumerable<Topic> resources, int totalCount)> ExecuteAsync(GetTopicsQuery query,
+        CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(query, cancellationToken);
         await getTopicsStorage.ThrowIfForumNotFoundAsync(query.ForumId, cancellationToken);

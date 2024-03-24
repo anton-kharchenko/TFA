@@ -9,8 +9,10 @@ public class MapperConfigurationShould(WebApplicationFactory<Program> webApplica
     : IClassFixture<WebApplicationFactory<Program>>
 {
     [Fact]
-    public void ShouldBeValid() =>
+    public void ShouldBeValid()
+    {
         webApplicationFactory.Services.GetRequiredService<IMapper>()
             .ConfigurationProvider.Invoking(p => p.AssertConfigurationIsValid())
             .Should().NotThrow();
+    }
 }

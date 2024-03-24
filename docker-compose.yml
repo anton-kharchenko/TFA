@@ -1,42 +1,42 @@
 version: '3.9'
 networks:
-  default: 
+  default:
     name: 'tfa'
-  
+
 volumes:
-  tfa-pg: 
+  tfa-pg:
   tfa-logs:
 
-services: 
-    postgress:
-      container_name: 'tfa-pg'
-      image: 'postgres:latest'
-      ports:
+services:
+  postgress:
+    container_name: 'tfa-pg'
+    image: 'postgres:latest'
+    ports:
       - '5432:5432'
-      environment:
-        POSTGRESS_PASSWORD: 'admin'
-      volumes:
+    environment:
+      POSTGRESS_PASSWORD: 'admin'
+    volumes:
       - tfa-pg:/var/lib/postgresql/data
-    
-    opensearch:
-      container_name: 'tfa-os'
-      image: 'opensearchproject/opensearch:2'
-      ports:
+  
+  opensearch:
+    container_name: 'tfa-os'
+    image: 'opensearchproject/opensearch:2'
+    ports:
       - '9200:9200'
       - '9600:9600'
-      environment:
-        discovery.type: 'single-node'
-        plugins.security.disabled: 'true'
-      volumes:
+    environment:
+      discovery.type: 'single-node'
+      plugins.security.disabled: 'true'
+    volumes:
       - tfa-logs:/usr/share/opensearch/data
-      
-    opentsearch-dashboards:
-      container_name: 'tfa-opensearch-dashboard'
-      image: 'opensearchproject/opensearch-dashboards:latest'
-      ports:
+  
+  opentsearch-dashboards:
+    container_name: 'tfa-opensearch-dashboard'
+    image: 'opensearchproject/opensearch-dashboards:latest'
+    ports:
       - '5601:5601'
-      environment:
-        OPENSEARCH_HOSTS: '["http://tfa-os:9200"]'
-        DISABLE_SECURITY_DASHBOARDS_PLIGIN: 'true'
-      depends_on: 
-        - opensearch
+    environment:
+      OPENSEARCH_HOSTS: '["http://tfa-os:9200"]'
+      DISABLE_SECURITY_DASHBOARDS_PLIGIN: 'true'
+    depends_on:
+      - opensearch

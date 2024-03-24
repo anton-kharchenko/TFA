@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using Moq.Language.Flow;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Models;
@@ -15,7 +16,7 @@ public class GetForumUseCaseShould
     public GetForumUseCaseShould()
     {
         storage = new Mock<IGetForumsStorage>();
-        
+
         getForumsSetup = storage.Setup(s => s.GetForumsAsync(It.IsAny<CancellationToken>()));
 
         sut = new GetForumsUseCase(storage.Object);
@@ -24,6 +25,18 @@ public class GetForumUseCaseShould
     [Fact]
     public async Task ReturnForums_FromStorage()
     {
-        await sut.ExecuteAsync(CancellationToken.None);
+        var forums = new Forum[]
+        {
+            new() { Id = Guid.Parse("CBFD82CB-5BB3-85EE-BCBE-6860780A97B5"), Title = "Title 1" },
+            new() { Id = Guid.Parse("D4A57818-F7CF-839E-9437-33A655FB12BD"), Title = "Title 2" }
+        };
+
+        getForumsSetup.ReturnsAsync(forums);
+
+        var actual = await sut.ExecuteAsync(CancellationToken.None);
+
+        actual.Should().BeSameAs(forums);
+        storage.Verify(s => s.GetForumsAsync(CancellationToken.None), Times.Once);
+        storage.VerifyNoOtherCalls();
     }
 }

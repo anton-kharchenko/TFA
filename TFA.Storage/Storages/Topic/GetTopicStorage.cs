@@ -2,7 +2,6 @@
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Storage.Configurations;
 
-
 namespace TFA.Storage.Storages.Topic;
 
 internal class GetTopicStorage(ForumDbContext dbContext) : IGetTopicsStorage
