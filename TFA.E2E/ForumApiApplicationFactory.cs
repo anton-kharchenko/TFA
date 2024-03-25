@@ -30,7 +30,7 @@ public class ForumApiApplicationFactory : WebApplicationFactory<Program>, IAsync
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string>
             {
-                ["ConnectionStrings:Postgres"] = _dbContainer.GetConnectionString()
+                ["ConnectionStrings:Postgres"] = _dbContainer.GetConnectionString(),
                 ["Authentication:Base64Key"] = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
             }!)
             .Build();

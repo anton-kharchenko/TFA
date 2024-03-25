@@ -14,7 +14,7 @@ internal class CreateForumStorage(
     IMemoryCache memoryCache,
     IMapper mapper) : ICreateForumStorage
 {
-    public async Task<Domain.Models.Forum> Create(string title, CancellationToken cancellationToken)
+    public async Task<Domain.Models.Forum> CreateAsync(string title, CancellationToken cancellationToken)
     {
         var forum = new Models.Forum
         {
