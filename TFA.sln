@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Storage.DependencyInjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.E2E", "TFA.E2E\TFA.E2E.csproj", "{22EECA13-5395-4DD2-A638-BE79C8EEA44F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Storage.Tests", "TFA.Storage.Tests\TFA.Storage.Tests.csproj", "{F11C7963-4209-444E-8B9A-ACAEB0B0E296}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{22EECA13-5395-4DD2-A638-BE79C8EEA44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22EECA13-5395-4DD2-A638-BE79C8EEA44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22EECA13-5395-4DD2-A638-BE79C8EEA44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11C7963-4209-444E-8B9A-ACAEB0B0E296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F11C7963-4209-444E-8B9A-ACAEB0B0E296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F11C7963-4209-444E-8B9A-ACAEB0B0E296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F11C7963-4209-444E-8B9A-ACAEB0B0E296}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

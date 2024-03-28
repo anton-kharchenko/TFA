@@ -47,8 +47,7 @@ public class SignInUseCaseShould
             {
                 Base64Key = "4pt2wIcJ08YhAjS/LN+f+g=="
             });
-
-
+        
         sut = new SignInUseCase(
             validator.Object,
             storage.Object,
@@ -88,6 +87,7 @@ public class SignInUseCaseShould
             PasswordHash = [1],
             Salt = [2]
         });
+        
         comparePasswordSetup.Returns(true);
         encryptorSetup.ReturnsAsync("token");
 
