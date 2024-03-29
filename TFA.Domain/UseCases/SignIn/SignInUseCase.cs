@@ -51,8 +51,10 @@ internal class SignInUseCase(
             });
         }
 
-        var token = await encryptor.EncryptAsync(recognisedUser.UserId.ToString(), options.Value.Key, cancellationToken);
+        var sessionId = await storage.CreateSessionAsync(recognisedUser.UserId, DateTimeOffset.Now + TimeSpan.FromHours(1), CancellationToken.None);
+        
+        var token = await encryptor.EncryptAsync(sessionId.ToString(), options.Value.Key, cancellationToken);
 
-        return (new User(recognisedUser.UserId, Guid.Empty), token);
+        return (new User(recognisedUser.UserId, sessionId), token);
     }
 }

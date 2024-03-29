@@ -6,7 +6,9 @@ namespace TFA.Domain.Authentication;
 
 internal class AuthenticationService(
     ISymmetricDecryptor symmetricDecryptor,
-    IOptions<AuthenticationConfiguration> authenticationConfiguration) : IAuthenticationService
+    IOptions<AuthenticationConfiguration> authenticationConfiguration,
+    IAuthenticationStorage authenticationStorage
+    ) : IAuthenticationService
 {
     private AuthenticationConfiguration? configuration;
 

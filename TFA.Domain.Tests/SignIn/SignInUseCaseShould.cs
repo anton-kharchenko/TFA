@@ -21,6 +21,7 @@ public class SignInUseCaseShould
     private readonly ISetup<ISymmetricEncryptor, Task<string>> encryptorSetup;
     private readonly ISetup<ISignInStorage, Task<Guid>> createSessionSetup;
     private readonly Mock<ISignInStorage> storage;
+    private readonly Mock<ISymmetricEncryptor> encryptor;
 
     public SignInUseCaseShould()
     {
@@ -40,7 +41,7 @@ public class SignInUseCaseShould
         comparePasswordSetup = passwordManager.Setup(m =>
             m.ComparePasswords(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>()));
 
-        var encryptor = new Mock<ISymmetricEncryptor>();
+        encryptor = new Mock<ISymmetricEncryptor>();
         encryptorSetup = encryptor
             .Setup(e => e.EncryptAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<CancellationToken>()));
 
@@ -82,9 +83,11 @@ public class SignInUseCaseShould
     }
 
     [Fact]
-    public async Task ReturnToken()
+    public async Task ReturnTokenAndIdentity()
     {
         var userId = Guid.Parse("8b7b1b7a-fd96-4ae1-9465-d0d4ed0e20b4");
+        var sessionId = Guid.Parse("21730616-58CB-888D-A91C-E1D1B0CF33B3");
+        
         findUserSetup.ReturnsAsync(new RecognisedUser
         {
             UserId = userId,
@@ -93,10 +96,15 @@ public class SignInUseCaseShould
         });
         
         comparePasswordSetup.Returns(true);
+        createSessionSetup.ReturnsAsync(sessionId);
         encryptorSetup.ReturnsAsync("token");
 
         var (identity, token) = await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
         identity.UserId.Should().Be(userId);
+                
+        identity.UserId.Should().Be(userId);
+        identity.SessionId.Should().Be(sessionId);
+        
         token.Should().Be("token");
     }
 
@@ -104,18 +112,28 @@ public class SignInUseCaseShould
     public async Task CreateSession_WhenPasswordMatches()
     {
         var userId = Guid.Parse("AEBD5586-5BB7-4F5B-B6A6-56D5F63351BA");
+        var sessionId = Guid.Parse("3B05C77F-541F-45A5-B680-147800895222");
         
         findUserSetup.ReturnsAsync(new RecognisedUser { UserId = userId });
         comparePasswordSetup.Returns(true);
-        
-        var sessionId = Guid.Parse("3B05C77F-541F-45A5-B680-147800895222");
         createSessionSetup.ReturnsAsync(sessionId);
 
-        var (identity, token) = await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
-        
-        identity.UserId.Should().Be(userId);
-        identity.SessionId.Should().Be(sessionId);
+        await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
         
         storage.Verify(s=>s.CreateSessionAsync(userId, It.IsAny<DateTimeOffset>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task EncryptSessionIdIntoToken()
+    {
+        var userId = Guid.Parse("6545950E-066A-8C82-92C8-0DAA372A6B74");
+        var sessionId = Guid.Parse("ba91e384-0506-89c9-b298-81a74e91820b");
+        
+        findUserSetup.ReturnsAsync(new RecognisedUser { UserId = userId });
+        comparePasswordSetup.Returns(true);
+        createSessionSetup.ReturnsAsync(sessionId);
+
+        await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
+        encryptor.Verify(s=>s.EncryptAsync("ba91e384-0506-89c9-b298-81a74e91820b", It.IsAny<byte[]>(), It.IsAny<CancellationToken>()));
     }
 }

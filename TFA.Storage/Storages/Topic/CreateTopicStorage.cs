@@ -2,6 +2,7 @@
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
+using TFA.Storage.Interfaces;
 
 namespace TFA.Storage.Storages.Topic;
 

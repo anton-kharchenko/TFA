@@ -2,6 +2,7 @@
 using TFA.Storage.Configurations;
 using TFA.Storage.Entities;
 using TFA.Storage.Helpers;
+using TFA.Storage.Interfaces;
 
 namespace TFA.Storage.Storages.SignOn;
 

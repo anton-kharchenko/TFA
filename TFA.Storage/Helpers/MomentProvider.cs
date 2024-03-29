@@ -1,4 +1,6 @@
-﻿namespace TFA.Storage.Helpers;
+﻿using TFA.Storage.Interfaces;
+
+namespace TFA.Storage.Helpers;
 
 public class MomentProvider : IMomentProvider
 {

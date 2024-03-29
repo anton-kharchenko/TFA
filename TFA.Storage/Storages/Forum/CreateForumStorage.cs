@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
+using TFA.Storage.Interfaces;
 
 namespace TFA.Storage.Storages.Forum;
 

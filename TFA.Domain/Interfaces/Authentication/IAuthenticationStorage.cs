@@ -1,8 +1,8 @@
-﻿using TFA.Domain.Share;
+﻿using TFA.Domain.Authentication;
 
 namespace TFA.Domain.Interfaces.Authentication;
 
 public interface IAuthenticationStorage
 {
-    Task<RecognisedUser?> FindUserAsync(string login, CancellationToken cancellationToken);
+    Task<Session?> FindSessionAsync(Guid sessionId, CancellationToken cancellationToken);
 }

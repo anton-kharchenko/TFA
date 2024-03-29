@@ -1,4 +1,4 @@
-﻿namespace TFA.Storage.Helpers;
+﻿namespace TFA.Storage.Interfaces;
 
 internal interface IGuidFactory
 {
