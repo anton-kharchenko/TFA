@@ -53,6 +53,6 @@ internal class SignInUseCase(
 
         var token = await encryptor.EncryptAsync(recognisedUser.UserId.ToString(), options.Value.Key, cancellationToken);
 
-        return (new User(recognisedUser.UserId), token);
+        return (new User(recognisedUser.UserId, Guid.Empty), token);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TFA.Domain.Share;
-using TFA.Storage.Models;
+using TFA.Storage.Entities;
 
 namespace TFA.Storage.Mappings;
 

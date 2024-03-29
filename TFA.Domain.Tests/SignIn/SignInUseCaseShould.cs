@@ -19,6 +19,8 @@ public class SignInUseCaseShould
     private readonly Mock<IPasswordManager> passwordManager;
     private readonly ISetup<IPasswordManager, bool> comparePasswordSetup;
     private readonly ISetup<ISymmetricEncryptor, Task<string>> encryptorSetup;
+    private readonly ISetup<ISignInStorage, Task<Guid>> createSessionSetup;
+    private readonly Mock<ISignInStorage> storage;
 
     public SignInUseCaseShould()
     {
@@ -28,9 +30,11 @@ public class SignInUseCaseShould
             .Setup(s => s.ValidateAsync(It.IsAny<SignInCommand>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new ValidationResult());
 
-        var storage = new Mock<ISignInStorage>();
+        storage = new Mock<ISignInStorage>();
         findUserSetup = storage
             .Setup(s => s.FindUserAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()));
+         createSessionSetup = storage.Setup(s => s.CreateSessionAsync(It.IsAny<Guid>(), It.IsAny<DateTimeOffset>(), It.IsAny<CancellationToken>()));
+
 
         passwordManager = new Mock<IPasswordManager>();
         comparePasswordSetup = passwordManager.Setup(m =>
@@ -94,5 +98,24 @@ public class SignInUseCaseShould
         var (identity, token) = await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
         identity.UserId.Should().Be(userId);
         token.Should().Be("token");
+    }
+
+    [Fact]
+    public async Task CreateSession_WhenPasswordMatches()
+    {
+        var userId = Guid.Parse("AEBD5586-5BB7-4F5B-B6A6-56D5F63351BA");
+        
+        findUserSetup.ReturnsAsync(new RecognisedUser { UserId = userId });
+        comparePasswordSetup.Returns(true);
+        
+        var sessionId = Guid.Parse("3B05C77F-541F-45A5-B680-147800895222");
+        createSessionSetup.ReturnsAsync(sessionId);
+
+        var (identity, token) = await sut.ExecuteAsync(new SignInCommand("Test", "qwerty"), CancellationToken.None);
+        
+        identity.UserId.Should().Be(userId);
+        identity.SessionId.Should().Be(sessionId);
+        
+        storage.Verify(s=>s.CreateSessionAsync(userId, It.IsAny<DateTimeOffset>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

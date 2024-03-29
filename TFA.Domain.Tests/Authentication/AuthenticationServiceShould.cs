@@ -36,6 +36,6 @@ public class AuthenticationServiceShould
         
         var actual = await sut.AuthenticateAsync("some token", CancellationToken.None);
 
-        actual.Should().BeEquivalentTo(new User(Guid.Parse("e12a40db-9da8-4edf-8868-adc9a084df91")));
+        actual.Should().BeEquivalentTo(new User(Guid.Parse("e12a40db-9da8-4edf-8868-adc9a084df91"), Guid.Empty));
     }
 }

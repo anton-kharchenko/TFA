@@ -38,7 +38,7 @@ public class IntentionManagerShould
         var identityProvider = new Mock<IIdentityProvider>();
         identityProvider
             .Setup(p => p.Current)
-            .Returns(new User(Guid.Parse("ad3ad09d-84e4-4c83-b398-a20a0c4c5e70")));
+            .Returns(new User(Guid.Parse("ad3ad09d-84e4-4c83-b398-a20a0c4c5e70"), Guid.Empty));
         
         var resolvers = new IIntentionResolver[] { intentionResolver.Object };
 

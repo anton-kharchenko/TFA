@@ -22,7 +22,7 @@ internal class CreateTopicStorage(
         CancellationToken cancellationToken)
     {
         var topicId = guidFactory.Create();
-        var topic = new Models.Topic
+        var topic = new Entities.Topic
         {
             TopicId = topicId,
             ForumId = forumId,

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TFA.Storage.Models;
+using TFA.Storage.Entities;
 
 namespace TFA.Storage.Configurations;
 

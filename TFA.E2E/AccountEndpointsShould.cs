@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
 using FluentAssertions;
-using TFA.Storage.Models;
+using TFA.Storage.Entities;
 
 namespace TFA.E2E;
 

@@ -18,6 +18,6 @@ internal class AuthenticationService(
         var userId = await symmetricDecryptor.DecryptAsync(authToken, configuration.Key, cancellationToken);
 
         // TODO: verify user id
-        return new User(Guid.Parse(userId));
+        return new User(Guid.Parse(userId), Guid.Empty);
     }
 }

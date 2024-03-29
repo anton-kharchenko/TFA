@@ -16,7 +16,7 @@ internal class CreateForumStorage(
 {
     public async Task<Domain.Models.Forum> CreateAsync(string title, CancellationToken cancellationToken)
     {
-        var forum = new Models.Forum
+        var forum = new Entities.Forum
         {
             ForumId = guidFactory.Create(),
             Title = title

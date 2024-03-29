@@ -18,6 +18,6 @@ internal class SignOnUseCase(
 
         var userId = await signOnStorage.CreateUserAsync(command.Login, salt, hash, cancellationToken);
 
-        return new User(userId);
+        return new User(userId, Guid.Empty);
     }
 }

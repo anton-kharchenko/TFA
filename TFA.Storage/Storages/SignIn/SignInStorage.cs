@@ -14,4 +14,9 @@ public class SignInStorage(ForumDbContext forumDbContext, IMapper mapper) : ISig
             .Where(u => u.Login.Equals(login))
             .ProjectTo<RecognisedUser>(mapper.ConfigurationProvider)
             .FirstOrDefaultAsync(cancellationToken);
+
+    public Task<Guid> CreateSessionAsync(Guid userId, DateTimeOffset expirationMoment, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

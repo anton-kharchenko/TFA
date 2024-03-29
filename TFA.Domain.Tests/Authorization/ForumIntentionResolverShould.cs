@@ -21,5 +21,5 @@ public class ForumIntentionResolverShould
 
     [Fact]
     public void ReturnTrue_WhenCheckingForumCreateIntention_AndUserIsAuthenticated() => 
-        sut.IsAllowed(new User(Guid.Parse("6fb5ab53-91c3-4444-adfd-a87713f3b94a")),  ForumIntention.Create).Should().BeTrue();
+        sut.IsAllowed(new User(Guid.Parse("6fb5ab53-91c3-4444-adfd-a87713f3b94a"), Guid.Empty),  ForumIntention.Create).Should().BeTrue();
 }

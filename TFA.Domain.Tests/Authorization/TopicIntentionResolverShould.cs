@@ -27,6 +27,6 @@ public class TopicIntentionResolverShould
     [Fact]
     public void ReturnTrue_WhenCheckingTopicCreateIntention_AndUserIsAuthenticated()
     {
-        sut.IsAllowed(new User(Guid.Parse("6fb5ab53-91c3-4444-adfd-a87713f3b94a")), TopicIntention.Create).Should().BeTrue();
+        sut.IsAllowed(new User(Guid.Parse("6fb5ab53-91c3-4444-adfd-a87713f3b94a"), Guid.Empty), TopicIntention.Create).Should().BeTrue();
     }
 }

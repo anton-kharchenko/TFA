@@ -1,7 +1,7 @@
 ﻿using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Storage.Configurations;
+using TFA.Storage.Entities;
 using TFA.Storage.Helpers;
-using TFA.Storage.Models;
 
 namespace TFA.Storage.Storages.SignOn;
 

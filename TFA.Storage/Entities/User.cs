@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TFA.Storage.Models;
+namespace TFA.Storage.Entities;
 
 public class User
 {
@@ -18,4 +18,7 @@ public class User
 
     [InverseProperty(nameof(Comment.Author))]
     public ICollection<Comment> Comments { get; set; } = default!;
+    
+    [InverseProperty(nameof(Session.User))]
+    public ICollection<Session> Sessions { get; set; } = default!;
 }

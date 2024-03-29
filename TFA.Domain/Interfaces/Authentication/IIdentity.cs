@@ -3,4 +3,5 @@
 public interface IIdentity
 {
     Guid UserId { get; }
+    Guid SessionId { get; set; }
 }
