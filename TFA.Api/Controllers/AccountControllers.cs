@@ -2,6 +2,8 @@
 using TFA.Api.Authentication;
 using TFA.Api.Requests.SignIn;
 using TFA.Api.Requests.SignOn;
+using TFA.Domain.Commands.SignIn;
+using TFA.Domain.Commands.SignOn;
 using TFA.Domain.Interfaces.UseCases.SignIn;
 using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Domain.UseCases.SignIn;

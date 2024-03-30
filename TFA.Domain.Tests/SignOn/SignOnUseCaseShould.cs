@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Moq;
 using Moq.Language.Flow;
+using TFA.Domain.Commands.SignOn;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Domain.UseCases.SignOn;

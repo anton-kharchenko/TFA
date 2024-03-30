@@ -1,3 +1,3 @@
-﻿namespace TFA.Domain.UseCases.SignOn;
+﻿namespace TFA.Domain.Commands.SignOn;
 
 public record SignOnCommand(string Login, string Password);

@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Language.Flow;
+using TFA.Domain.Commands.SignIn;
 using TFA.Domain.Configurations;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.UseCases.SignIn;

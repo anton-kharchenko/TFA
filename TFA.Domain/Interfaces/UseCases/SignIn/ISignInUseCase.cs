@@ -1,4 +1,5 @@
-﻿using TFA.Domain.Interfaces.Authentication;
+﻿using TFA.Domain.Commands.SignIn;
+using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.UseCases.SignIn;
 
 namespace TFA.Domain.Interfaces.UseCases.SignIn;

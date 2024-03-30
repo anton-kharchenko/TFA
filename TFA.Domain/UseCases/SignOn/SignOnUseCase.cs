@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using TFA.Domain.Authentication;
+using TFA.Domain.Commands.SignOn;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.UseCases.SignOn;
 

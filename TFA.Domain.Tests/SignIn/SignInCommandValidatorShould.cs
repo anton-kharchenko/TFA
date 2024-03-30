@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TFA.Domain.Commands.SignIn;
 using TFA.Domain.UseCases.SignIn;
 using TFA.Domain.Validations.SignIn;
 
