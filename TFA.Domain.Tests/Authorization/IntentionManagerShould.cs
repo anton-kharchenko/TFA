@@ -3,7 +3,7 @@ using FluentAssertions;
 using Moq;
 using TFA.Domain.Authentication;
 using TFA.Domain.Authorization;
-using TFA.Domain.Enums.Forum;
+using TFA.Domain.Enums;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 
@@ -22,7 +22,7 @@ public class IntentionManagerShould
 
         var sut = new IntentionManager(resolvers, new Mock<IIdentityProvider>().Object);
 
-        sut.IsAllowed(ForumIntention.Create).Should().BeFalse();
+        sut.IsAllowed(ForumIntentionType.Create).Should().BeFalse();
     }
 
     [Theory]
@@ -30,9 +30,9 @@ public class IntentionManagerShould
     [InlineData(false, false)]
     public void ReturnMatchingResolverResult(bool expectedResolverResult, bool expected)
     {
-        var intentionResolver = new Mock<IIntentionResolver<ForumIntention>>();
+        var intentionResolver = new Mock<IIntentionResolver<ForumIntentionType>>();
         intentionResolver
-            .Setup(r => r.IsAllowed(It.IsAny<IIdentity>(), It.IsAny<ForumIntention>()))
+            .Setup(r => r.IsAllowed(It.IsAny<IIdentity>(), It.IsAny<ForumIntentionType>()))
             .Returns(expectedResolverResult);
             
         var identityProvider = new Mock<IIdentityProvider>();
@@ -44,6 +44,6 @@ public class IntentionManagerShould
 
         var sut = new IntentionManager(resolvers, identityProvider.Object);
 
-        sut.IsAllowed(ForumIntention.Create).Should().Be(expected);
+        sut.IsAllowed(ForumIntentionType.Create).Should().Be(expected);
     }
 }

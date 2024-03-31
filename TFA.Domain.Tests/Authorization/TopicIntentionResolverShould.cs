@@ -2,6 +2,7 @@
 using Moq;
 using TFA.Domain.Authentication;
 using TFA.Domain.Interfaces.Authentication;
+using TFA.Domain.Resolvers.Topic;
 using TFA.Domain.UseCases.CreateTopic;
 
 namespace TFA.Domain.Tests.Authorization;

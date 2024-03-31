@@ -1,4 +1,5 @@
-﻿using TFA.Domain.Interfaces.Authentication;
+﻿using TFA.Domain.Enums;
+using TFA.Domain.Interfaces.Authentication;
 
 namespace TFA.Domain.Interfaces.Authorization;
 

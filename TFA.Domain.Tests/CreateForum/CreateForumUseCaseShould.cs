@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using Moq;
 using Moq.Language.Flow;
 using TFA.Domain.Commands.CreateForum;
-using TFA.Domain.Enums.Forum;
+using TFA.Domain.Enums;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Models;
@@ -27,7 +27,7 @@ public class CreateForumUseCaseShould
             .ReturnsAsync(new ValidationResult());
 
         var intentionManager = new Mock<IIntentionManager>();
-        intentionManager.Setup(m=>m.IsAllowed(It.IsAny<ForumIntention>())).Returns(true);
+        intentionManager.Setup(m=>m.IsAllowed(It.IsAny<ForumIntentionType>())).Returns(true);
 
         _storage = new Mock<ICreateForumStorage>();
         _createForumSetup = _storage.Setup(s => s.CreateAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()));

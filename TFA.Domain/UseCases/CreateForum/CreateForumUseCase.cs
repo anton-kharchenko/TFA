@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using TFA.Domain.Commands.CreateForum;
-using TFA.Domain.Enums.Forum;
 using TFA.Domain.Extensions;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Forum;

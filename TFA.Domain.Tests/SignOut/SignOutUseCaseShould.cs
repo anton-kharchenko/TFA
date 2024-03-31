@@ -27,6 +27,9 @@ public class SignOutUseCaseShould
     }
 
     [Fact]
+    public async Task
+
+    [Fact]
     public async Task RemoveCurrentIdentitySession()
     {
         var sessionId = Guid.Parse("AFBB9DFF-A067-8E11-BA34-A3C32A7B0943");
