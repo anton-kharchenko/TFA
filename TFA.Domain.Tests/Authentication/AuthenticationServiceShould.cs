@@ -7,6 +7,8 @@ using Moq.Language.Flow;
 using TFA.Domain.Authentication;
 using TFA.Domain.Configurations;
 using TFA.Domain.Interfaces.Authentication;
+using TFA.Domain.Interfaces.Storages;
+using TFA.Storage.Interfaces;
 
 namespace TFA.Domain.Tests.Authentication;
 
@@ -24,7 +26,8 @@ public class AuthenticationServiceShould
 
         var storage = new Mock<IAuthenticationStorage>();
 
-        findUserIdSetup = storage.Setup(s => s.FindSessionAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()));
+        findUserIdSetup = storage.Setup(s => 
+            s.FindSessionAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()));
 
         var options = new Mock<IOptions<AuthenticationConfiguration>>();
         options.Setup(o => o.Value)

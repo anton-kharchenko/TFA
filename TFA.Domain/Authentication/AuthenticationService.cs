@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TFA.Domain.Configurations;
 using TFA.Domain.Interfaces.Authentication;
+using TFA.Domain.Interfaces.Storages;
 
 namespace TFA.Domain.Authentication;
 

@@ -10,6 +10,7 @@ using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Domain.Interfaces.UseCases.SignIn;
 using TFA.Domain.Interfaces.UseCases.SignOn;
+using TFA.Domain.Interfaces.UseCases.SignOut;
 using TFA.Domain.Models;
 using TFA.Domain.Resolvers.Forum;
 using TFA.Domain.Resolvers.Topic;
@@ -19,6 +20,7 @@ using TFA.Domain.UseCases.GetForums;
 using TFA.Domain.UseCases.GetTopic;
 using TFA.Domain.UseCases.SignIn;
 using TFA.Domain.UseCases.SignOn;
+using TFA.Domain.UseCases.SignOut;
 
 namespace TFA.Domain.DependencyInjection;
 
@@ -35,6 +37,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IIntentionResolver, TopicIntentionResolver>()
             .AddScoped<ISignInUseCase, SignInUseCase>()
             .AddScoped<ISignOnUseCase, SignOnUseCase>()
+            .AddScoped<ISignOutUseCase, SignOutUseCase>()
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<ISymmetricDecryptor, AesSymmetricEncryptorDecryptor>()
             .AddScoped<ISymmetricEncryptor, AesSymmetricEncryptorDecryptor>()

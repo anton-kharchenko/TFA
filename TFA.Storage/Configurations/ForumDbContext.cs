@@ -16,4 +16,6 @@ public class ForumDbContext : DbContext
     public DbSet<Topic> Topics { get; set; } = default!;
 
     public DbSet<Comment> Comments { get; set; } = default!;
+
+    public DbSet<Session> Sessions { get; set; } = default!;
 }

@@ -1,6 +1,6 @@
 ﻿namespace TFA.Storage.Interfaces;
 
-internal interface IGuidFactory
+public interface IGuidFactory
 {
     Guid Create();
 }

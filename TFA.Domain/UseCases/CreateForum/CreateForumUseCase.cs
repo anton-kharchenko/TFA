@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using TFA.Domain.Commands.CreateForum;
+using TFA.Domain.Enums;
 using TFA.Domain.Extensions;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Forum;
@@ -17,7 +18,7 @@ internal class CreateForumUseCase(
     public async Task<Forum> ExecuteAsync(CreateForumCommand command, CancellationToken cancellationToken)
     {
         await validator.ValidateAsync(new CreateForumCommandValidator(), cancellationToken);
-        intentionManager.ThrowIfForbidden(ForumIntention.Create);
+        intentionManager.ThrowIfForbidden(ForumIntentionType.Create);
         return await storage.CreateAsync(command.Title, cancellationToken);
     }
 }

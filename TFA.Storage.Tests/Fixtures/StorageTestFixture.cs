@@ -5,7 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Testcontainers.PostgreSql;
 using TFA.Storage.Configurations;
 
-namespace TFA.Storage.Tests;
+namespace TFA.Storage.Tests.Fixtures;
 
 public class StorageTestFixture : IAsyncLifetime
 {
@@ -19,7 +19,7 @@ public class StorageTestFixture : IAsyncLifetime
     public ForumDbContext GetDbContext() => new(new DbContextOptionsBuilder<ForumDbContext>()
         .UseNpgsql(_dbContainer.GetConnectionString()).Options);
 
-    public async Task InitializeAsync()
+    public virtual async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
         var forumDbContext = new ForumDbContext(new DbContextOptionsBuilder<ForumDbContext>()

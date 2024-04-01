@@ -1,6 +1,6 @@
-﻿using TFA.Domain.Authentication;
+﻿using Session = TFA.Domain.Authentication.Session;
 
-namespace TFA.Domain.Interfaces.Authentication;
+namespace TFA.Domain.Interfaces.Storages;
 
 public interface IAuthenticationStorage
 {

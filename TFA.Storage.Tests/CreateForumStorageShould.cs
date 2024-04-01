@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TFA.Storage.Helpers;
 using TFA.Storage.Storages.Forum;
+using TFA.Storage.Tests.Fixtures;
 
 namespace TFA.Storage.Tests;
 
