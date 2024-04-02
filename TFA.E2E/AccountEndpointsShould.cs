@@ -18,10 +18,12 @@ public class AccountEndpointsShould(ForumApiApplicationFactory applicationFactor
 
         var signInResponse = await httpClient.PostAsync("account/signin", JsonContent.Create(new { loggin = "Test", password = "qwerty" }));
         signInResponse.IsSuccessStatusCode.Should().BeTrue();
-        signInResponse.Headers.Should().ContainKey("TFA-Auth-Token");
         
         var signedUser = await signInResponse.Content.ReadFromJsonAsync<User>();
 
-        signedUser.Should().NotBeNull().And.BeEquivalentTo(createdUser);
+        signedUser.UserId.Should().Be(createdUser.UserId);
+
+        var createForumResponse = await httpClient.PostAsync("forums", JsonContent.Create(new {title = "Test title"}));
+        createForumResponse.IsSuccessStatusCode.Should().BeTrue();
     }
 }

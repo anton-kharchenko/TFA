@@ -6,5 +6,9 @@ namespace TFA.Storage.Mappings;
 
 public class UserProfile : Profile
 {
-    public UserProfile() => CreateMap<User, RecognisedUser>();
+    public UserProfile()
+    {
+        CreateMap<User, RecognisedUser>();
+        CreateMap<Session, Domain.Authentication.Session>();
+    }
 }
