@@ -30,14 +30,14 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddScoped<ICreateForumUseCase, CreateForumUseCase>()
-            .AddScoped<IIntentionResolver, ForumIntentionResolver>()
             .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>()
             .AddScoped<IGetForumsUseCase, GetForumsUseCase>()
             .AddScoped<IGetTopicsUseCase, GetTopicsUseCase>()
-            .AddScoped<IIntentionResolver, TopicIntentionResolver>()
             .AddScoped<ISignInUseCase, SignInUseCase>()
             .AddScoped<ISignOnUseCase, SignOnUseCase>()
             .AddScoped<ISignOutUseCase, SignOutUseCase>()
+            .AddScoped<IIntentionResolver, ForumIntentionResolver>()
+            .AddScoped<IIntentionResolver, TopicIntentionResolver>()
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<ISymmetricDecryptor, AesSymmetricEncryptorDecryptor>()
             .AddScoped<ISymmetricEncryptor, AesSymmetricEncryptorDecryptor>()

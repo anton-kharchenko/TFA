@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.MapPrometheusScrapingEndpoint();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.Run();
 

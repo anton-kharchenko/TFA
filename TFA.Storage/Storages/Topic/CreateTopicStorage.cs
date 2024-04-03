@@ -11,11 +11,6 @@ internal class CreateTopicStorage(
     IMomentProvider momentProvider,
     ForumDbContext dbContext) : ICreateTopicStorage
 {
-    public Task<bool> ForumExistsAsync(Guid forumId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<Domain.Models.Topic> CreateTopicAsync(
         Guid forumId,
         Guid userId,
