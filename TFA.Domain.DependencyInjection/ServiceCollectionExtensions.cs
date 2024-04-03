@@ -12,6 +12,7 @@ using TFA.Domain.Interfaces.UseCases.SignIn;
 using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Domain.Interfaces.UseCases.SignOut;
 using TFA.Domain.Models;
+using TFA.Domain.Monitoring;
 using TFA.Domain.Resolvers.Forum;
 using TFA.Domain.Resolvers.Topic;
 using TFA.Domain.UseCases.CreateForum;
@@ -50,5 +51,7 @@ public static class ServiceCollectionExtensions
         services.AddMemoryCache();
 
         services.AddValidatorsFromAssemblyContaining<Forum>();
+
+        services.AddSingleton<DomainMetrics>();
     }
 }
