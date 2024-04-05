@@ -30,13 +30,6 @@ public static class ServiceCollectionExtensions
     public static void AddForumDomain(this IServiceCollection services)
     {
         services
-            .AddScoped<ICreateForumUseCase, CreateForumUseCase>()
-            .AddScoped<ICreateTopicUseCase, CreateTopicUseCase>()
-            .AddScoped<IGetForumsUseCase, GetForumsUseCase>()
-            .AddScoped<IGetTopicsUseCase, GetTopicsUseCase>()
-            .AddScoped<ISignInUseCase, SignInUseCase>()
-            .AddScoped<ISignOnUseCase, SignOnUseCase>()
-            .AddScoped<ISignOutUseCase, SignOutUseCase>()
             .AddScoped<IIntentionResolver, ForumIntentionResolver>()
             .AddScoped<IIntentionResolver, TopicIntentionResolver>()
             .AddScoped<IAuthenticationService, AuthenticationService>()

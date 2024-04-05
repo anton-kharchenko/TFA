@@ -1,3 +1,6 @@
-﻿namespace TFA.Domain.Commands.CreateForum;
+﻿using MediatR;
+using TFA.Domain.Models;
 
-public record CreateForumCommand(string Title);
+namespace TFA.Domain.Commands.CreateForum;
+
+public record CreateForumCommand(string Title) : IRequest<Forum>;

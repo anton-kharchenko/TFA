@@ -4,11 +4,13 @@ using FluentValidation.Results;
 using Moq;
 using Moq.Language.Flow;
 using TFA.Domain.Commands.CreateTopic;
+using TFA.Domain.Enums;
 using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
+using TFA.Domain.Keys;
 using TFA.Domain.Models;
 using TFA.Domain.UseCases.CreateTopic;
 using Topic = TFA.Domain.Models.Topic;
@@ -40,7 +42,7 @@ public class CreateTopicUseCaseShould
         identityProvider.Setup(p => p.Current).Returns(identity.Object);
         getCurrentUserIdSetup = identity.Setup(s => s.UserId);
 
-        intentionIsAllowedSetup = intentionManager.Setup(m => m.IsAllowed(It.IsAny<TopicIntention>()));
+        intentionIsAllowedSetup = intentionManager.Setup(m => m.IsAllowed(It.IsAny<TopicIntentionType>()));
 
         var validator = new Mock<IValidator<CreateTopicCommand>>();
         
@@ -58,7 +60,7 @@ public class CreateTopicUseCaseShould
 
         await sut.Invoking(s => s.ExecuteAsync(new CreateTopicCommand(forumId, "Whatever"), CancellationToken.None))
             .Should().ThrowAsync<IntentionManagerException>();
-        intentionManager.Verify(m => m.IsAllowed(TopicIntention.Create));
+        intentionManager.Verify(m => m.IsAllowed(TopicIntentionType.Create));
     }
 
     [Fact]

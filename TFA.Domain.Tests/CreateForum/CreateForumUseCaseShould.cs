@@ -40,7 +40,7 @@ public class CreateForumUseCaseShould
     [Fact]
     public async Task ReturnCreateForum()
     {
-        var forum = new Forum()
+        var forum = new Forum
         {
             Id = Guid.Parse("0eb26ab4-2061-4758-8ab3-4f0f30e950cc"),
             Title = "Hi"
@@ -48,7 +48,7 @@ public class CreateForumUseCaseShould
 
         _createForumSetup.ReturnsAsync(forum);
 
-        var actual = await sut.ExecuteAsync(new CreateForumCommand("Hi"), CancellationToken.None);
+        var actual = await sut.Handle(new CreateForumCommand("Hi"), CancellationToken.None);
         actual.Should().Be(forum);
         
         _storage.Verify(s=>s.CreateAsync("Hi", It.IsAny<CancellationToken>()));

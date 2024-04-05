@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
+using MediatR;
 using TFA.Domain.Commands.CreateTopic;
+using TFA.Domain.Enums;
 using TFA.Domain.Extensions;
 using TFA.Domain.Extensions.UseCases;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Topic;
-using TFA.Domain.Interfaces.UseCases.CreateTopic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Models;
 
@@ -16,15 +17,15 @@ public class CreateTopicUseCase(
     ICreateTopicStorage storage,
     IIdentityProvider identityProvider,
     IGetForumsStorage getForumsStorage,
-    IValidator<CreateTopicCommand> validator) : ICreateTopicUseCase
+    IValidator<CreateTopicCommand> validator) : IRequestHandler<CreateTopicCommand, Topic>
 {
-    public async Task<Topic> ExecuteAsync(CreateTopicCommand command, CancellationToken cancellationToken)
+    public async Task<Topic> Handle(CreateTopicCommand command, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(command, cancellationToken);
 
         var (forumId, title) = (command.ForumId, command.Title);
 
-        intentionManager.ThrowIfForbidden(TopicIntention.Create);
+        intentionManager.ThrowIfForbidden(TopicIntentionType.Create);
 
         await getForumsStorage.ThrowIfForumNotFoundAsync(forumId, cancellationToken);
 

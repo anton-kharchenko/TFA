@@ -1,3 +1,6 @@
-﻿namespace TFA.Domain.Commands.CreateTopic;
+﻿using MediatR;
+using TFA.Domain.Models;
 
-public record CreateTopicCommand(Guid ForumId, string Title);
+namespace TFA.Domain.Commands.CreateTopic;
+
+public record CreateTopicCommand(Guid ForumId, string Title) : IRequest<Topic>;
