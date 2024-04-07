@@ -39,7 +39,7 @@ public class SignOutUseCaseShould
     {
         signOutIsAllowedSetup.Returns(false);
         
-        await sut.Invoking(s => s.ExecuteAsync(new SignOutCommand(), CancellationToken.None))
+        await sut.Invoking(s => s.Handle(new SignOutCommand(), CancellationToken.None))
             .Should().ThrowAsync<IntentionManagerException>();
     }
 
@@ -51,7 +51,7 @@ public class SignOutUseCaseShould
         currentIdentitySetup.Returns(new User(Guid.Empty, sessionId));
         removeSessionSetup.Returns(Task.CompletedTask);
 
-        await sut.ExecuteAsync(new SignOutCommand(), new CancellationToken());
+        await sut.Handle(new SignOutCommand(), new CancellationToken());
 
         storage.Verify(s => s.RemoveSessionAsync(sessionId, It.IsAny<CancellationToken>()), Times.Once);
         storage.VerifyNoOtherCalls();

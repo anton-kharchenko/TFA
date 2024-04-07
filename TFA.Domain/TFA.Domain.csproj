@@ -15,7 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Queries\GetForum\GetForumQuery.cs" />
+      <Folder Include="Interfaces\UseCases\CreateForum\" />
+      <Folder Include="Interfaces\UseCases\CreateTopic\" />
     </ItemGroup>
 
 </Project>

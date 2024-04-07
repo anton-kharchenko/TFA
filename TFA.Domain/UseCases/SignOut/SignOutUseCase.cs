@@ -1,4 +1,5 @@
-﻿using TFA.Domain.Commands.SignOut;
+﻿using MediatR;
+using TFA.Domain.Commands.SignOut;
 using TFA.Domain.Enums;
 using TFA.Domain.Extensions;
 using TFA.Domain.Interfaces.Authentication;
@@ -11,9 +12,9 @@ internal class SignOutUseCase(
     IIntentionManager intentionManager,
     IIdentityProvider identityProvider,
     ISignOutStorage signOutStorage
-) : ISignOutUseCase
+) : IRequestHandler<SignOutCommand>
 {
-    public async Task ExecuteAsync(SignOutCommand command, CancellationToken cancellationToken)
+    public async Task Handle(SignOutCommand command, CancellationToken cancellationToken)
     {
         intentionManager.ThrowIfForbidden(AccountIntentionType.SignOut);
         var sessionId = identityProvider.Current.SessionId;

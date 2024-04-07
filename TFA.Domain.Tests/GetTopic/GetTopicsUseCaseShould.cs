@@ -7,6 +7,7 @@ using TFA.Domain.Exceptions;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Domain.Models;
+using TFA.Domain.Queries.GetTopics;
 using TFA.Domain.UseCases.GetTopic;
 
 namespace TFA.Domain.Tests.GetTopic;
@@ -20,9 +21,9 @@ public class GetTopicsUseCaseShould
 
     public GetTopicsUseCaseShould()
     {
-        var validator = new Mock<IValidator<GetTopicsQuery>>();
+        var validator = new Mock<IValidator<GetTopicQuery>>();
         validator.Setup(v =>
-            v.ValidateAsync(It.IsAny<GetTopicsQuery>(), It.IsAny<CancellationToken>()));
+            v.ValidateAsync(It.IsAny<GetTopicQuery>(), It.IsAny<CancellationToken>()));
 
         _getTopicsStorage = new Mock<IGetTopicsStorage>();
         _getTopicsSetup = _getTopicsStorage.Setup(s =>
@@ -44,7 +45,7 @@ public class GetTopicsUseCaseShould
         _getTopicsSetup.ReturnsAsync((expectedResources, expectedTotalCount));
 
         var (actualResources, actualTotalCount) =
-            await _sut.ExecuteAsync(new GetTopicsQuery(forumId, 5, 10), CancellationToken.None);
+            await _sut.Handle(new GetTopicQuery(forumId, 5, 10), CancellationToken.None);
 
         actualResources.Should().BeEquivalentTo(expectedResources);
         actualTotalCount.Should().Be(expectedTotalCount);
@@ -58,8 +59,8 @@ public class GetTopicsUseCaseShould
 
         _getForumSetUp.ReturnsAsync(new Forum[] { new() { Id = Guid.Parse("6135ef52-95af-4617-b1a9-86da3d02da2b") } });
 
-        var query = new GetTopicsQuery(forumId, 0, 1);
-        await _sut.Invoking(s => s.ExecuteAsync(query, CancellationToken.None))
+        var query = new GetTopicQuery(forumId, 0, 1);
+        await _sut.Invoking(s => s.Handle(query, CancellationToken.None))
             .Should()
             .ThrowAsync<ForumNotFoundException>();
     }

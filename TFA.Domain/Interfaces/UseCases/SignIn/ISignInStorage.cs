@@ -1,4 +1,4 @@
-﻿using TFA.Domain.Share;
+using TFA.Domain.Share;
 
 namespace TFA.Domain.Interfaces.UseCases.SignIn;
 

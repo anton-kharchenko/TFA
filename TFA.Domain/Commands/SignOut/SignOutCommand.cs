@@ -1,3 +1,5 @@
-﻿namespace TFA.Domain.Commands.SignOut;
+﻿using MediatR;
 
-public record SignOutCommand();
+namespace TFA.Domain.Commands.SignOut;
+
+public record SignOutCommand : IRequest;

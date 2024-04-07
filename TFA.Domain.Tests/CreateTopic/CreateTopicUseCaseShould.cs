@@ -58,7 +58,7 @@ public class CreateTopicUseCaseShould
 
         intentionIsAllowedSetup.Returns(false);
 
-        await sut.Invoking(s => s.ExecuteAsync(new CreateTopicCommand(forumId, "Whatever"), CancellationToken.None))
+        await sut.Invoking(s => s.Handle(new CreateTopicCommand(forumId, "Whatever"), CancellationToken.None))
             .Should().ThrowAsync<IntentionManagerException>();
         intentionManager.Verify(m => m.IsAllowed(TopicIntentionType.Create));
     }
@@ -71,7 +71,7 @@ public class CreateTopicUseCaseShould
         intentionIsAllowedSetup.Returns(true);
         getForumsSetup.ReturnsAsync(Array.Empty<Forum>());
 
-        await sut.Invoking(s => s.ExecuteAsync(new CreateTopicCommand(forumId, "Some title"), CancellationToken.None))
+        await sut.Invoking(s => s.Handle(new CreateTopicCommand(forumId, "Some title"), CancellationToken.None))
             .Should().ThrowAsync<ForumNotFoundException>();
     }
 
@@ -87,7 +87,7 @@ public class CreateTopicUseCaseShould
         var expected = new Topic();
         createTopicSetup.ReturnsAsync(expected);
 
-        var actual = await sut.ExecuteAsync(new CreateTopicCommand(forumId, "Hello world"), CancellationToken.None);
+        var actual = await sut.Handle(new CreateTopicCommand(forumId, "Hello world"), CancellationToken.None);
         actual.Should().Be(expected);
 
         storage.Verify(s => s.CreateTopicAsync(forumId, userId, "Hello world", It.IsAny<CancellationToken>()), Times.Once);

@@ -42,7 +42,7 @@ public class SignOnUseCaseShould
         var hash = new byte[] { 2 };
         generatePasswordPartsSetup.Returns((salt, hash));
         
-        var executeAsync = await sut.ExecuteAsync(new SignOnCommand("Test", "qwerty"), CancellationToken.None);
+        await sut.Handle(new SignOnCommand("Test", "qwerty"), CancellationToken.None);
         
         storage.Verify(s=>s.CreateUserAsync("Test", salt, hash, It.IsAny<CancellationToken>()));
         storage.VerifyNoOtherCalls();
@@ -56,7 +56,7 @@ public class SignOnUseCaseShould
         generatePasswordPartsSetup.Returns((salt, hash));
         createUserSetup.ReturnsAsync(Guid.Parse("edccd271-24b7-4891-809b-03c7d0d3fe0a"));
         
-        var actual = await sut.ExecuteAsync(new SignOnCommand("Test", "qwerty"), CancellationToken.None);
+        var actual = await sut.Handle(new SignOnCommand("Test", "qwerty"), CancellationToken.None);
         actual.UserId.Should().Be(Guid.Parse("edccd271-24b7-4891-809b-03c7d0d3fe0a"));
 
     }

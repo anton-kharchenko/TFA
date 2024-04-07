@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MediatR;
 using TFA.Domain.Authentication;
 using TFA.Domain.Commands.SignOn;
 using TFA.Domain.Interfaces.Authentication;
@@ -9,9 +10,9 @@ namespace TFA.Domain.UseCases.SignOn;
 internal class SignOnUseCase(
     IValidator<SignOnCommand> validator,
     IPasswordManager passwordManager,
-    ISignOnStorage signOnStorage) : ISignOnUseCase
+    ISignOnStorage signOnStorage) : IRequestHandler<SignOnCommand, IIdentity>
 {
-    public async Task<IIdentity> ExecuteAsync(SignOnCommand command, CancellationToken cancellationToken)
+    public async Task<IIdentity> Handle(SignOnCommand command, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(command, cancellationToken);
 

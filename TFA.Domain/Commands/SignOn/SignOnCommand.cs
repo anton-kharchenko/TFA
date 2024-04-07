@@ -1,3 +1,6 @@
-﻿namespace TFA.Domain.Commands.SignOn;
+﻿using System.Security.Principal;
+using MediatR;
 
-public record SignOnCommand(string Login, string Password);
+namespace TFA.Domain.Commands.SignOn;
+
+public record SignOnCommand(string Login, string Password) : IRequest<IIdentity>, IRequest<Interfaces.Authentication.IIdentity>;

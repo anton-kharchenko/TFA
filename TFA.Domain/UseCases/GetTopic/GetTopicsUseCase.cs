@@ -1,19 +1,20 @@
 ﻿using FluentValidation;
-using TFA.Domain.Commands.GetTopics;
+using MediatR;
 using TFA.Domain.Extensions.UseCases;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Domain.Models;
+using TFA.Domain.Queries.GetTopics;
 
 namespace TFA.Domain.UseCases.GetTopic;
 
 internal class GetTopicsUseCase(
-    IValidator<GetTopicsQuery> validator,
+    IValidator<GetTopicQuery> validator,
     IGetTopicsStorage storage,
-    IGetForumsStorage getTopicsStorage) : IGetTopicsUseCase
+    IGetForumsStorage getTopicsStorage) : IRequestHandler<GetTopicQuery, (IEnumerable<Topic> resources, int totalCount)>
 {
-    public async Task<(IEnumerable<Topic> resources, int totalCount)> ExecuteAsync(GetTopicsQuery query,
-        CancellationToken cancellationToken)
+    
+    public async Task<(IEnumerable<Topic> resources, int totalCount)> Handle(GetTopicQuery query, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(query, cancellationToken);
         await getTopicsStorage.ThrowIfForumNotFoundAsync(query.ForumId, cancellationToken);

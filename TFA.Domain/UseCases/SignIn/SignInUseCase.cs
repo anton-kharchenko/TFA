@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using MediatR;
 using Microsoft.Extensions.Options;
 using TFA.Domain.Authentication;
 using TFA.Domain.Commands.SignIn;
@@ -16,9 +17,9 @@ internal class SignInUseCase(
     ISignInStorage storage,
     IPasswordManager passwordManager,
     ISymmetricEncryptor encryptor,
-    IOptions<AuthenticationConfiguration> options) : ISignInUseCase
+    IOptions<AuthenticationConfiguration> options) : IRequestHandler<SignInCommand, (IIdentity identity, string token)>
 {
-    public async Task<(IIdentity identity, string token)> ExecuteAsync(SignInCommand command, CancellationToken cancellationToken)
+    public async Task<(IIdentity identity, string token)> Handle(SignInCommand command, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(command, cancellationToken);
 

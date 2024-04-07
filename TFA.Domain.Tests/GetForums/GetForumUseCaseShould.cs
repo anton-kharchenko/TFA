@@ -2,6 +2,7 @@
 using Moq;
 using TFA.Domain.Interfaces.UseCases.GetForums;
 using TFA.Domain.Monitoring;
+using TFA.Domain.Queries.GetForum;
 using TFA.Domain.UseCases.GetForums;
 
 namespace TFA.Domain.Tests.GetForums;
@@ -20,5 +21,5 @@ public class GetForumUseCaseShould
     }
 
     [Fact]
-    public async Task ReturnForums_FromStorage() => await sut.ExecuteAsync(CancellationToken.None);
+    public async Task ReturnForums_FromStorage() => await sut.Handle(new GetForumQuery(),CancellationToken.None);
 }
