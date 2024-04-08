@@ -17,7 +17,7 @@ public class GetForumUseCaseShould
         
         storage.Setup(s => s.GetForumsAsync(It.IsAny<CancellationToken>()));
 
-        sut = new GetForumsUseCase(storage.Object, new DomainMetrics(new Mock<IMeterFactory>().Object));
+        sut = new GetForumsUseCase(storage.Object);
     }
 
     [Fact]

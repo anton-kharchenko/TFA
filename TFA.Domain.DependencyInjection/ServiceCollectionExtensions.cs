@@ -6,6 +6,7 @@ using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Models;
 using TFA.Domain.Monitoring;
+using TFA.Domain.Pipes;
 using TFA.Domain.Resolvers.Forum;
 using TFA.Domain.Resolvers.Topic;
 
@@ -16,7 +17,10 @@ public static class ServiceCollectionExtensions
     public static void AddForumDomain(this IServiceCollection services)
     {
         services.AddMediatR(options => 
-            options.RegisterServicesFromAssemblyContaining<Forum>());
+            options
+                .AddOpenBehavior(typeof(MonitoringPipelineBehaviour<,>))
+                .AddOpenBehavior(typeof(ValidationPipelineBehaviour<,>))
+                .RegisterServicesFromAssemblyContaining<Forum>());
 
         services
             .AddScoped<IIntentionManager, IntentionManager>()

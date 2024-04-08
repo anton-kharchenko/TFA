@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using TFA.Domain.Commands.SignOn;
 using TFA.Domain.UseCases.SignOn;
-using TFA.Domain.Validations.SignOn;
+using TFA.Domain.Validations.Authentications.SignOn;
 
 namespace TFA.Domain.Tests.SignOn;
 

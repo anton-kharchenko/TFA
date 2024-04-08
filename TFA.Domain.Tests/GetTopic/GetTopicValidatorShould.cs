@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TFA.Domain.Commands.GetTopics;
-using TFA.Domain.Validations.GetTopics;
+using TFA.Domain.Validations.Queries.GetTopics;
 
 namespace TFA.Domain.Tests.GetTopic;
 

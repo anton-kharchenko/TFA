@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TFA.Domain.Commands.CreateForum;
-using TFA.Domain.Validations.CreateForum;
+using TFA.Domain.Validations.Commands.CreateForum;
 
 namespace TFA.Domain.Tests.CreateForum;
 

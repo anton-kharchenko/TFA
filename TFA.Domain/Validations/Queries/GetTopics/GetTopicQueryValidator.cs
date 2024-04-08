@@ -2,7 +2,7 @@
 using TFA.Domain.Commands.GetTopics;
 using TFA.Domain.Keys;
 
-namespace TFA.Domain.Validations.GetTopics;
+namespace TFA.Domain.Validations.Queries.GetTopics;
 
 internal class GetTopicQueryValidator : AbstractValidator<GetTopicsQuery>
 {

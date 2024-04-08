@@ -5,4 +5,5 @@ namespace TFA.Domain.Interfaces.Monitoring;
 public interface IMonitoringRequest
 {
     void MonitorSuccess(DomainMetrics metrics);
+    void MonitorFailure(DomainMetrics metrics);
 }

@@ -11,7 +11,7 @@ using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Models;
 using TFA.Domain.Monitoring;
 using TFA.Domain.UseCases.CreateForum;
-using TFA.Domain.Validations.CreateForum;
+using TFA.Domain.Validations.Commands.CreateForum;
 
 namespace TFA.Domain.Tests.CreateForum;
 
@@ -34,7 +34,7 @@ public class CreateForumUseCaseShould
         _storage = new Mock<ICreateForumStorage>();
         _createForumSetup = _storage.Setup(s => s.CreateAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()));
 
-        sut = new CreateForumUseCase(validator.Object, intentionManager.Object, _storage.Object, new DomainMetrics(new Mock<IMeterFactory>().Object));
+        sut = new CreateForumUseCase(validator.Object, intentionManager.Object, _storage.Object);
     }
 
     [Fact]

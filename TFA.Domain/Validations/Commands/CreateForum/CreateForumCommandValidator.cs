@@ -2,7 +2,7 @@
 using TFA.Domain.Commands.CreateForum;
 using TFA.Domain.Keys;
 
-namespace TFA.Domain.Validations.CreateForum;
+namespace TFA.Domain.Validations.Commands.CreateForum;
 
 public class CreateForumCommandValidator : AbstractValidator<CreateForumCommand>
 {

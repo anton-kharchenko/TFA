@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TFA.Domain.Commands.CreateTopic;
-using TFA.Domain.Validations.CreateTopic;
+using TFA.Domain.Validations.Commands.CreateTopic;
 
 namespace TFA.Domain.Tests.CreateTopic;
 

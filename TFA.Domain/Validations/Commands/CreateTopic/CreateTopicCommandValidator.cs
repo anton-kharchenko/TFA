@@ -2,7 +2,7 @@
 using TFA.Domain.Commands.CreateTopic;
 using TFA.Domain.Keys;
 
-namespace TFA.Domain.Validations.CreateTopic;
+namespace TFA.Domain.Validations.Commands.CreateTopic;
 
 internal class CreateTopicCommandValidator : AbstractValidator<CreateTopicCommand>
 {
