@@ -8,7 +8,9 @@ namespace TFA.Domain.Commands.CreateForum;
 
 public record CreateForumCommand(string Title) : IRequest<Forum>, IMonitoringRequest
 {
-    public void MonitorSuccess(DomainMetrics metrics) => metrics.IncrementCounter(MonitoringKeys.CounterName, 1, DomainMetrics.ResultTags(true));
+    public void MonitorSuccess(DomainMetrics metrics) => 
+        metrics.IncrementCounter(MonitoringKeys.ForumCreateCounterName, 1, DomainMetrics.ResultTags(true));
 
-    public void MonitorFailure(DomainMetrics metrics) => metrics.IncrementCounter(MonitoringKeys.CounterName, 1, DomainMetrics.ResultTags(false));
+    public void MonitorFailure(DomainMetrics metrics) => 
+        metrics.IncrementCounter(MonitoringKeys.ForumCreateCounterName, 1, DomainMetrics.ResultTags(false));
 }

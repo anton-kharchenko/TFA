@@ -5,16 +5,20 @@ using TFA.Domain.Monitoring;
 
 namespace TFA.Domain.Pipes;
 
-internal class MonitoringPipelineBehaviour<TRequest, TResponse>(DomainMetrics metrics, ILogger<MonitoringPipelineBehaviour<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
+internal class MonitoringPipelineBehaviour<TRequest, TResponse>(
+    DomainMetrics metrics,
+    ILogger<MonitoringPipelineBehaviour<TRequest, TResponse>> logger)
+    : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
-    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (request is not IMonitoringRequest monitoringRequest) return next.Invoke();
+        if (request is not IMonitoringRequest monitoringRequest)
+            return await next.Invoke();
 
         try
         {
-            var result = next.Invoke();
+            var result = await next.Invoke();
             monitoringRequest.MonitorSuccess(metrics);
             return result;
         }
