@@ -23,7 +23,7 @@ internal class MonitoringPipelineBehaviour<TRequest, TResponse>(
         using var activity = DomainMetrics.ActivitySource.StartActivity(
             "usecase", ActivityKind.Internal, default(ActivityContext));
         activity?.AddTag("tfa.command", request.GetType().Name);
-        
+
         try
         {
             var result = await next.Invoke();

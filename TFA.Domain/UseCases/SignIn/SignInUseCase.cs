@@ -13,7 +13,6 @@ using ValidationException = System.ComponentModel.DataAnnotations.ValidationExce
 namespace TFA.Domain.UseCases.SignIn;
 
 internal class SignInUseCase(
-    IValidator<SignInCommand> validator,
     ISignInStorage storage,
     IPasswordManager passwordManager,
     ISymmetricEncryptor encryptor,
@@ -21,8 +20,6 @@ internal class SignInUseCase(
 {
     public async Task<(IIdentity identity, string token)> Handle(SignInCommand command, CancellationToken cancellationToken)
     {
-        await validator.ValidateAndThrowAsync(command, cancellationToken);
-
         var recognisedUser = await storage.FindUserAsync(command.Login, cancellationToken);
 
         if (recognisedUser is null)

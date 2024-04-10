@@ -14,7 +14,7 @@ public class IntentionManagerShould
     [Fact]
     public void ReturnFalse_WhenNoMatchingResolver()
     {
-        var resolvers = new IIntentionResolver[]
+        var resolvers = new[]
         {
             new Mock<IIntentionResolver>().Object,
             new Mock<IIntentionResolver<HttpStatusCode>>().Object
@@ -34,12 +34,12 @@ public class IntentionManagerShould
         intentionResolver
             .Setup(r => r.IsAllowed(It.IsAny<IIdentity>(), It.IsAny<ForumIntentionType>()))
             .Returns(expectedResolverResult);
-            
+
         var identityProvider = new Mock<IIdentityProvider>();
         identityProvider
             .Setup(p => p.Current)
             .Returns(new User(Guid.Parse("ad3ad09d-84e4-4c83-b398-a20a0c4c5e70"), Guid.Empty));
-        
+
         var resolvers = new IIntentionResolver[] { intentionResolver.Object };
 
         var sut = new IntentionManager(resolvers, identityProvider.Object);

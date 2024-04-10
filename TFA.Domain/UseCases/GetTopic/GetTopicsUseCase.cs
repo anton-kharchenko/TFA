@@ -9,14 +9,13 @@ using TFA.Domain.Queries.GetTopics;
 namespace TFA.Domain.UseCases.GetTopic;
 
 internal class GetTopicsUseCase(
-    IValidator<GetTopicQuery> validator,
     IGetTopicsStorage storage,
-    IGetForumsStorage getTopicsStorage) : IRequestHandler<GetTopicQuery, (IEnumerable<Topic> resources, int totalCount)>
+    IGetForumsStorage getTopicsStorage) : 
+    IRequestHandler<GetTopicQuery, (IEnumerable<Topic> resources, int totalCount)>
 {
     
     public async Task<(IEnumerable<Topic> resources, int totalCount)> Handle(GetTopicQuery query, CancellationToken cancellationToken)
     {
-        await validator.ValidateAndThrowAsync(query, cancellationToken);
         await getTopicsStorage.ThrowIfForumNotFoundAsync(query.ForumId, cancellationToken);
         return await storage.GetTopicsAsync(query.ForumId, query.Skip, query.Take, cancellationToken);
     }

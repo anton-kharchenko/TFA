@@ -14,11 +14,11 @@ namespace TFA.Domain.Tests.SignOut;
 
 public class SignOutUseCaseShould
 {
-    private readonly SignOutUseCase sut;
-    private readonly Mock<ISignOutStorage> storage;
-    private readonly ISetup<ISignOutStorage, Task> removeSessionSetup;
     private readonly ISetup<IIdentityProvider, IIdentity> currentIdentitySetup;
+    private readonly ISetup<ISignOutStorage, Task> removeSessionSetup;
     private readonly ISetup<IIntentionManager, bool> signOutIsAllowedSetup;
+    private readonly Mock<ISignOutStorage> storage;
+    private readonly SignOutUseCase sut;
 
     public SignOutUseCaseShould()
     {
@@ -38,7 +38,7 @@ public class SignOutUseCaseShould
     public async Task ThrowIntentionManagerException_WhenUserIsNotAuthenticated()
     {
         signOutIsAllowedSetup.Returns(false);
-        
+
         await sut.Invoking(s => s.Handle(new SignOutCommand(), CancellationToken.None))
             .Should().ThrowAsync<IntentionManagerException>();
     }

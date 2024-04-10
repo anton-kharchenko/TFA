@@ -16,13 +16,10 @@ public class CreateTopicUseCase(
     IIntentionManager intentionManager,
     ICreateTopicStorage storage,
     IIdentityProvider identityProvider,
-    IGetForumsStorage getForumsStorage,
-    IValidator<CreateTopicCommand> validator) : IRequestHandler<CreateTopicCommand, Topic>
+    IGetForumsStorage getForumsStorage) : IRequestHandler<CreateTopicCommand, Topic>
 {
     public async Task<Topic> Handle(CreateTopicCommand command, CancellationToken cancellationToken)
     {
-        await validator.ValidateAndThrowAsync(command, cancellationToken);
-
         var (forumId, title) = (command.ForumId, command.Title);
 
         intentionManager.ThrowIfForbidden(TopicIntentionType.Create);

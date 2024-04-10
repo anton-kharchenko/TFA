@@ -1,6 +1,4 @@
 using FluentAssertions;
-using FluentValidation;
-using FluentValidation.Results;
 using Moq;
 using Moq.Language.Flow;
 using TFA.Domain.Commands.CreateTopic;
@@ -10,7 +8,6 @@ using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
 using TFA.Domain.Interfaces.Storages.Topic;
 using TFA.Domain.Interfaces.UseCases.GetForums;
-using TFA.Domain.Keys;
 using TFA.Domain.Models;
 using TFA.Domain.UseCases.CreateTopic;
 using Topic = TFA.Domain.Models.Topic;
@@ -19,18 +16,16 @@ namespace TFA.Domain.Tests.CreateTopic;
 
 public class CreateTopicUseCaseShould
 {
-    private readonly CreateTopicUseCase sut;
-    private readonly Mock<ICreateTopicStorage> storage = new();
-    private readonly Mock<IIntentionManager> intentionManager = new();
-
     private readonly ISetup<ICreateTopicStorage, Task<Topic>> createTopicSetup;
     private readonly ISetup<IIdentity, Guid> getCurrentUserIdSetup;
-    private readonly ISetup<IIntentionManager, bool> intentionIsAllowedSetup;
     private readonly ISetup<IGetForumsStorage, Task<IEnumerable<Forum>>> getForumsSetup;
+    private readonly ISetup<IIntentionManager, bool> intentionIsAllowedSetup;
+    private readonly Mock<IIntentionManager> intentionManager = new();
+    private readonly Mock<ICreateTopicStorage> storage = new();
+    private readonly CreateTopicUseCase sut;
 
     public CreateTopicUseCaseShould()
     {
-
         createTopicSetup = storage.Setup(s =>
             s.CreateTopicAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<CancellationToken>()));
 
@@ -44,11 +39,8 @@ public class CreateTopicUseCaseShould
 
         intentionIsAllowedSetup = intentionManager.Setup(m => m.IsAllowed(It.IsAny<TopicIntentionType>()));
 
-        var validator = new Mock<IValidator<CreateTopicCommand>>();
-        
-        validator.Setup(i => i.ValidateAsync(It.IsAny<CreateTopicCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(new ValidationResult());
-
-        sut = new CreateTopicUseCase(intentionManager.Object, storage.Object, identityProvider.Object, getForumsStorage.Object, validator.Object);
+        sut = new CreateTopicUseCase(intentionManager.Object, storage.Object, identityProvider.Object,
+            getForumsStorage.Object);
     }
 
     [Fact]
@@ -90,6 +82,7 @@ public class CreateTopicUseCaseShould
         var actual = await sut.Handle(new CreateTopicCommand(forumId, "Hello world"), CancellationToken.None);
         actual.Should().Be(expected);
 
-        storage.Verify(s => s.CreateTopicAsync(forumId, userId, "Hello world", It.IsAny<CancellationToken>()), Times.Once);
+        storage.Verify(s => s.CreateTopicAsync(forumId, userId, "Hello world", It.IsAny<CancellationToken>()),
+            Times.Once);
     }
 }

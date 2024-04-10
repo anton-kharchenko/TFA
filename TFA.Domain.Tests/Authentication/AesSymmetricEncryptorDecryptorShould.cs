@@ -4,14 +4,15 @@ using TFA.Domain.Authentication;
 
 namespace TFA.Domain.Tests.Authentication;
 
-public class AesSymmetricEncryptorDecryptorShould()
+public class AesSymmetricEncryptorDecryptorShould
 {
     private readonly AesSymmetricEncryptorDecryptor _sut = new();
 
     [Fact]
     public async Task ReturnMeaningfulEncryptedString()
     {
-        var actual = await _sut.EncryptAsync("Hello, world!", RandomNumberGenerator.GetBytes(32), CancellationToken.None);
+        var actual =
+            await _sut.EncryptAsync("Hello, world!", RandomNumberGenerator.GetBytes(32), CancellationToken.None);
 
         actual.Should().NotBeEmpty();
     }
@@ -23,7 +24,7 @@ public class AesSymmetricEncryptorDecryptorShould()
         var key = RandomNumberGenerator.GetBytes(32);
         var encrypt = await _sut.EncryptAsync(HelloWorld, key, CancellationToken.None);
         var decrypt = await _sut.DecryptAsync(encrypt, key, CancellationToken.None);
-        
+
         decrypt.Should().Be(HelloWorld);
     }
 

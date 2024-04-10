@@ -8,14 +8,12 @@ using TFA.Domain.Interfaces.UseCases.SignOn;
 namespace TFA.Domain.UseCases.SignOn;
 
 internal class SignOnUseCase(
-    IValidator<SignOnCommand> validator,
     IPasswordManager passwordManager,
-    ISignOnStorage signOnStorage) : IRequestHandler<SignOnCommand, IIdentity>
+    ISignOnStorage signOnStorage) : 
+    IRequestHandler<SignOnCommand, IIdentity>
 {
     public async Task<IIdentity> Handle(SignOnCommand command, CancellationToken cancellationToken)
     {
-        await validator.ValidateAndThrowAsync(command, cancellationToken);
-
         var (salt, hash) = passwordManager.GeneratePasswordParts(command.Password);
 
         var userId = await signOnStorage.CreateUserAsync(command.Login, salt, hash, cancellationToken);

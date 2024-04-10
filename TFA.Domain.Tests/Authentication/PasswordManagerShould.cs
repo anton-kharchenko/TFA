@@ -5,9 +5,9 @@ namespace TFA.Domain.Tests.Authentication;
 
 public class PasswordManagerShould
 {
-    private readonly PasswordManager sut = new();
     private static readonly byte[] EmptySalt = Enumerable.Repeat((byte)0, 100).ToArray();
     private static readonly byte[] EmptyHash = Enumerable.Repeat((byte)0, 32).ToArray();
+    private readonly PasswordManager sut = new();
 
     [Theory]
     [InlineData("password")]
@@ -15,7 +15,7 @@ public class PasswordManagerShould
     public void GenerateMeaningfulSaltAndHash(string password)
     {
         var (salt, hash) = sut.GeneratePasswordParts(password);
-        
+
         salt.Should().HaveCount(100).And.NotBeEquivalentTo(EmptySalt);
         hash.Should().HaveCount(32).And.NotBeEquivalentTo(EmptyHash);
     }
@@ -27,7 +27,7 @@ public class PasswordManagerShould
         var (salt, hash) = sut.GeneratePasswordParts(Password);
         sut.ComparePasswords(Password, salt, hash).Should().BeTrue();
     }
-    
+
     [Fact]
     public void ReturnTrue_WhenPasswordNotMatch()
     {

@@ -5,7 +5,8 @@ using Forum = TFA.Domain.Models.Forum;
 
 namespace TFA.Domain.UseCases.GetForums;
 
-public class GetForumsUseCase(IGetForumsStorage getForumsStorage) : IRequestHandler<GetForumQuery, IEnumerable<Forum>>
+public class GetForumsUseCase(IGetForumsStorage getForumsStorage) :
+     IRequestHandler<GetForumQuery, IEnumerable<Forum>>
 {
     public async Task<IEnumerable<Forum>> Handle(GetForumQuery query, CancellationToken cancellationToken) => 
         await getForumsStorage.GetForumsAsync(cancellationToken);
