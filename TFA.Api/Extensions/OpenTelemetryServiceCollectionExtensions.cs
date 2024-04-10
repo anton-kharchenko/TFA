@@ -17,7 +17,14 @@ internal static class OpenTelemetryServiceCollectionExtensions
                 .AddMeter("TFA.Domain")
             )
             .WithTracing(builder => builder.ConfigureResource(r => r.AddService("TFA"))
-                .AddAspNetCoreInstrumentation()
+                .AddAspNetCoreInstrumentation(opt =>
+                {
+                    opt.Filter += context =>
+                        !context.Request.Path.Value!.Contains("metrics", StringComparison.InvariantCulture) &&
+                        !context.Request.Path.Value!.Contains("swagger", StringComparison.InvariantCulture);
+                    opt.EnrichWithHttpResponse = (activity, response) =>
+                        activity.AddTag("error", response.StatusCode = 400);
+                })
                 .AddEntityFrameworkCoreInstrumentation(cnf => cnf.SetDbStatementForText = true)
                 .AddSource("TFA.Domain")
                 .AddConsoleExporter()

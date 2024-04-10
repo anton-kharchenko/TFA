@@ -20,18 +20,6 @@ services:
     volumes:
       - tfa-pg:/var/lib/postgresql/data
   
-  opensearch:
-    container_name: 'tfa-os'
-    image: 'opensearchproject/opensearch:2'
-    ports:
-      - '9200:9200'
-      - '9600:9600'
-    environment:
-      discovery.type: 'single-node'
-      plugins.security.disabled: 'true'
-    volumes:
-      - tfa-logs:/usr/share/opensearch/data
-  
   opentsearch-dashboards:
     container_name: 'tfa-opensearch-dashboard'
     image: 'opensearchproject/opensearch-dashboards:latest'

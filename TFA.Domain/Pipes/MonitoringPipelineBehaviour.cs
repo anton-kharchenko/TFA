@@ -28,11 +28,13 @@ internal class MonitoringPipelineBehaviour<TRequest, TResponse>(
         {
             var result = await next.Invoke();
             monitoringRequest.MonitorSuccess(metrics);
+            activity?.AddTag("error", false);
             return result;
         }
         catch (Exception e)
         {
             monitoringRequest.MonitorFailure(metrics);
+            activity?.AddTag("error", true);
             logger.LogError(e, "MetricsPipelineBehaviour error caught");
             throw;
         }
