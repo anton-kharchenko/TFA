@@ -18,11 +18,14 @@ internal static class LoggingServiceCollectionExtensions
         IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        var loggingLevelSwitch = new LoggingLevelSwitch(LogEventLevel.Debug);
+        services.AddSingleton(loggingLevelSwitch);
+        
         services.AddLogging(loggingBuilder => loggingBuilder
             .Configure(options => options.ActivityTrackingOptions =
                 ActivityTrackingOptions.TraceId | ActivityTrackingOptions.SpanId)
             .AddSerilog(new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.ControlledBy(loggingLevelSwitch)
                 .Enrich.WithProperty("Application", "TFA.API")
                 .Enrich.WithProperty("Environment", environment.EnvironmentName)
                 .Enrich.With<TracingContextEnricher>()
