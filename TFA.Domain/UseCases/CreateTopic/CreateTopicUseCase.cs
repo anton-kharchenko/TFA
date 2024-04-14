@@ -28,12 +28,10 @@ public class CreateTopicUseCase(
 
         await getForumsStorage.ThrowIfForumNotFoundAsync(forumId, cancellationToken);
 
-       await using var scope = await unitOfWork.CreateScopeAsync();
-       var forumsStorage = scope.GetStorage<ICreateForumStorage>();
-       var createTopicStorage = scope.GetStorage<ICreateTopicStorage>();
+       await using var scope = await unitOfWork.StartScopeAsync(cancellationToken);
 
+       var createTopicStorage = scope.GetStorage<ICreateTopicStorage>();
        var topic = await createTopicStorage.CreateTopicAsync(forumId, identityProvider.Current.UserId, title, cancellationToken);
-       await forumsStorage.CreateAsync(title, cancellationToken);
        
        await scope.CommitAsync(cancellationToken);
        return topic;

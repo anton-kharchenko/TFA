@@ -2,7 +2,7 @@
 
 public interface IUnitOfWork
 {
-    Task<IUnitOfWorkScope> CreateScopeAsync();
+    Task<IUnitOfWorkScope> StartScopeAsync(CancellationToken cancellationToken);
 }
 
 public interface IUnitOfWorkScope : IAsyncDisposable

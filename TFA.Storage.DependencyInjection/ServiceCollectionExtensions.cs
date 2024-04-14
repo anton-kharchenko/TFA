@@ -12,6 +12,7 @@ using TFA.Domain.Interfaces.UseCases.SignOut;
 using TFA.Storage.Configurations;
 using TFA.Storage.Helpers;
 using TFA.Storage.Interfaces;
+using TFA.Storage.Storages;
 using TFA.Storage.Storages.Authentication;
 using TFA.Storage.Storages.Forum;
 using TFA.Storage.Storages.SignIn;
@@ -34,6 +35,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<ISignInStorage, SignInStorage>()
             .AddScoped<ISignOnStorage, SignOnStorage>()
             .AddScoped<ISignOutStorage, SignOutStorage>();
+
+        services.AddSingleton<IUnitOfWork>(sp => new UnitOfWork(sp));
 
         services.AddScoped<IGuidFactory, GuidFactory>();
         services.AddScoped<IMomentProvider, MomentProvider>();
