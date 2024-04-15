@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TFA.Domain.Interfaces.Events;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Interfaces.Storages.Topic;
@@ -9,11 +10,12 @@ using TFA.Domain.Interfaces.UseCases.GetTopics;
 using TFA.Domain.Interfaces.UseCases.SignIn;
 using TFA.Domain.Interfaces.UseCases.SignOn;
 using TFA.Domain.Interfaces.UseCases.SignOut;
-using TFA.Storage.Configurations;
+using TFA.Storage.Context;
 using TFA.Storage.Helpers;
 using TFA.Storage.Interfaces;
 using TFA.Storage.Storages;
 using TFA.Storage.Storages.Authentication;
+using TFA.Storage.Storages.Events;
 using TFA.Storage.Storages.Forum;
 using TFA.Storage.Storages.SignIn;
 using TFA.Storage.Storages.SignOn;
@@ -27,6 +29,7 @@ public static class ServiceCollectionExtensions
     public static void AddForumStorages(this IServiceCollection services, string? connectionString = default)
     {
         services
+            .AddScoped<IDomainEventStorage, DomainEventStorage>()
             .AddScoped<IAuthenticationStorage, AuthenticationStorage>()
             .AddScoped<ICreateTopicStorage, CreateTopicStorage>()
             .AddScoped<ICreateForumStorage, CreateForumStorage>()

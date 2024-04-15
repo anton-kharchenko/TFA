@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Interfaces.UseCases.GetTopics;
-using TFA.Storage.Configurations;
+using TFA.Storage.Context;
 
 namespace TFA.Storage.Storages.Topic;
 

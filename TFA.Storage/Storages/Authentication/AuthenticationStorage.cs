@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TFA.Domain.Authentication;
 using TFA.Domain.Interfaces.Storages;
-using TFA.Storage.Configurations;
+using TFA.Storage.Context;
 
 namespace TFA.Storage.Storages.Authentication;
 

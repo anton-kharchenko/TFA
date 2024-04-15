@@ -7,7 +7,7 @@ public interface IUnitOfWork
 
 public interface IUnitOfWorkScope : IAsyncDisposable
 {
-    TStorage GetStorage<TStorage>();
+    TStorage GetStorage<TStorage>() where TStorage : IStorage;
     
     Task CommitAsync(CancellationToken cancellationToken);
 }

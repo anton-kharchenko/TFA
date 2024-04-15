@@ -1,6 +1,6 @@
 ﻿namespace TFA.Storage.Interfaces;
 
-internal interface IMomentProvider
+public interface IMomentProvider
 {
     DateTimeOffset Now { get; }
 }

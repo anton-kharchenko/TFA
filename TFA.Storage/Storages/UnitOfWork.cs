@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using TFA.Domain.Interfaces.Storages;
-using TFA.Storage.Configurations;
+using TFA.Storage.Context;
 
 namespace TFA.Storage.Storages;
 

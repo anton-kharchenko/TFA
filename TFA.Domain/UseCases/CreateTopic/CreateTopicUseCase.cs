@@ -5,6 +5,7 @@ using TFA.Domain.Extensions;
 using TFA.Domain.Extensions.UseCases;
 using TFA.Domain.Interfaces.Authentication;
 using TFA.Domain.Interfaces.Authorization;
+using TFA.Domain.Interfaces.Events;
 using TFA.Domain.Interfaces.Storages;
 using TFA.Domain.Interfaces.Storages.Forum;
 using TFA.Domain.Interfaces.Storages.Topic;
@@ -31,7 +32,10 @@ public class CreateTopicUseCase(
        await using var scope = await unitOfWork.StartScopeAsync(cancellationToken);
 
        var createTopicStorage = scope.GetStorage<ICreateTopicStorage>();
+       var domainEventStorage = scope.GetStorage<IDomainEventStorage>();
+       
        var topic = await createTopicStorage.CreateTopicAsync(forumId, identityProvider.Current.UserId, title, cancellationToken);
+       await domainEventStorage.AddEventAsync(topic, cancellationToken);
        
        await scope.CommitAsync(cancellationToken);
        return topic;

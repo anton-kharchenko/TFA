@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TFA.Storage;
-using TFA.Storage.Configurations;
+using TFA.Storage.Context;
 
 
 #nullable disable
