@@ -16,6 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		.dockerignore = .dockerignore
 		Dockerfile = Dockerfile
 		prometheus.yml = prometheus.yml
+		kafka-connect\Dockerfile = kafka-connect\Dockerfile
+		kafka-connect\worker.properties = kafka-connect\worker.properties
+		kafka-connect\tfa-source-connector.properties = kafka-connect\tfa-source-connector.properties
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Domain.DependencyInjection", "TFA.Domain.DependencyInjection\TFA.Domain.DependencyInjection.csproj", "{9837D518-0037-4D5A-8BEC-E4DD0E50FB19}"
