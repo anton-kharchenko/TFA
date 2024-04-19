@@ -1,4 +1,6 @@
 using AutoMapper;
+using Confluent.Kafka;
+using TFA.Api;
 using TFA.Api.Authentication;
 using TFA.Api.Extensions;
 using TFA.Api.Mappings;
@@ -23,6 +25,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHostedService<KafkaConsumer>();
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.StopHost;
+});
+builder.Services.AddSingleton(new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
+{
+    BootstrapServers = "localhost:9092"
+}).Build());
 
 var app = builder.Build();
 var mapper = app.Services.GetRequiredService<IMapper>();

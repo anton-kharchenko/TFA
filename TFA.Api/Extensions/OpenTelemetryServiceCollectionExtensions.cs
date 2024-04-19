@@ -1,4 +1,6 @@
-﻿using OpenTelemetry.Metrics;
+﻿// Ignore Spelling: Api
+
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
