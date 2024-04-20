@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Testcontainers.PostgreSql;
-using TFA.Storage.Context;
+using TFA.Storage.Configurations;
 
 namespace TFA.E2E;
 

@@ -11,7 +11,9 @@ public class KafkaConsumer(IConsumer<byte[], byte[]> consumer, ILogger<KafkaCons
     {
         await Task.Yield();
         
+       logger.LogInformation("Subscribing to topic");
        consumer.Subscribe("tfa.DomainEvents");
+       
        while (!stopingToken.IsCancellationRequested)
        {
            var consumeResult = consumer.Consume(stopingToken);
@@ -19,7 +21,9 @@ public class KafkaConsumer(IConsumer<byte[], byte[]> consumer, ILogger<KafkaCons
            var contentBlob = Convert.FromBase64String(domainEvent!.ContentBlob);
            var topic = JsonSerializer.Deserialize<Topic>(contentBlob);
            logger.LogInformation($"Message received with id: {topic!.Id}");
+           consumer.Commit(consumeResult);
        }
+       
        consumer.Close();
     }
     

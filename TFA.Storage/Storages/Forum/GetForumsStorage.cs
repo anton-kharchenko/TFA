@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using TFA.Domain.Interfaces.UseCases.GetForums;
-using TFA.Storage.Context;
+using TFA.Storage.Configurations;
 
 namespace TFA.Storage.Storages.Forum;
 

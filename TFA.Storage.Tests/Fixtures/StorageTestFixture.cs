@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Testcontainers.PostgreSql;
-using TFA.Storage.Context;
+using TFA.Storage.Configurations;
 
 namespace TFA.Storage.Tests.Fixtures;
 

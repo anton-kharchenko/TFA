@@ -1,9 +1,8 @@
 ﻿using System.Net.Http.Json;
-using System.Text.Json;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TFA.Storage.Context;
+using TFA.Storage.Configurations;
 using TFA.Storage.Entities;
 
 namespace TFA.E2E;
@@ -38,15 +37,12 @@ public class AccountEndpointsShould(ForumApiApplicationFactory applicationFactor
         var createdForum = await createForumResponse.Content.ReadFromJsonAsync<Forum>();
 
         var createTopicResponse = await httpClient.PostAsync($"forums/{createdForum!.ForumId}/topics",
-            JsonContent.Create(new { Title = "New topic" }));
-        createForumResponse.IsSuccessStatusCode.Should().BeTrue(await createTopicResponse.Content.ReadAsStringAsync());
+            JsonContent.Create(new { Title = "0123456789012345678901234567890123456789" }));
+        createForumResponse.IsSuccessStatusCode.Should().BeTrue();
 
         await using var scope = applicationFactory.Services.CreateAsyncScope();
         var forumDbContext = scope.ServiceProvider.GetRequiredService<ForumDbContext>();
-        var domainEvents = await forumDbContext.DomainEvents.ToArrayAsync();
-        domainEvents.Should().HaveCount(1);
-        var topic = JsonSerializer.Deserialize<Topic>(domainEvents[0].ContentBlob);
-        topic.Should().NotBeNull();
-        topic!.Title.Should().Be(testTitle);
+        (await forumDbContext.Forums.ToArrayAsync()).Should().ContainSingle(f => f.Title == testTitle);
+        (await forumDbContext.Topics.ToArrayAsync()).Should().ContainSingle(f => f.Title == testTitle);
     }
 }

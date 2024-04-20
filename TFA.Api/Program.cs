@@ -30,9 +30,13 @@ builder.Services.Configure<HostOptions>(options =>
 {
     options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.StopHost;
 });
+
 builder.Services.AddSingleton(new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
 {
-    BootstrapServers = "localhost:9092"
+    BootstrapServers = "localhost:9092",
+    EnableAutoCommit = false,
+    AutoOffsetReset = AutoOffsetReset.Earliest,
+    GroupId = "tfa.experiment"
 }).Build());
 
 var app = builder.Build();
