@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Confluent.Kafka;
-using TFA.Domain.Models;
+using TFA.Forum.Domain.Models;
 
 namespace TFA.Api;
 

@@ -16,7 +16,7 @@ internal static class OpenTelemetryServiceCollectionExtensions
             .WithMetrics(builder => builder
                 .AddInstrumentation(serviceProvider => serviceProvider)
                 .AddPrometheusExporter()
-                .AddMeter("TFA.Domain")
+                .AddMeter("TFA.Forum.Domain")
             )
             .WithTracing(builder => builder.ConfigureResource(r => r.AddService("TFA"))
                 .AddAspNetCoreInstrumentation(opt =>
@@ -28,7 +28,7 @@ internal static class OpenTelemetryServiceCollectionExtensions
                         activity.AddTag("error", response.StatusCode = 400);
                 })
                 .AddEntityFrameworkCoreInstrumentation(cnf => cnf.SetDbStatementForText = true)
-                .AddSource("TFA.Domain")
+                .AddSource("TFA.Forum.Domain")
                 .AddConsoleExporter()
                 .AddJaegerExporter(options => options.Endpoint = new Uri(configuration.GetConnectionString("Tracing")!))
             );

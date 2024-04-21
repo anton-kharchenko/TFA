@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TFA.Api.Authentication;
 using TFA.Api.Requests.SignIn;
 using TFA.Api.Requests.SignOn;
-using TFA.Domain.Commands.SignIn;
-using TFA.Domain.Commands.SignOn;
+using TFA.Forum.Domain.Commands.SignIn;
+using TFA.Forum.Domain.Commands.SignOn;
 
 namespace TFA.Api.Controllers;
 

@@ -1,13 +1,11 @@
 using AutoMapper;
-using Confluent.Kafka;
-using TFA.Api;
 using TFA.Api.Authentication;
 using TFA.Api.Extensions;
 using TFA.Api.Mappings;
 using TFA.Api.Middlewares;
-using TFA.Domain.Configurations;
-using TFA.Domain.DependencyInjection;
-using TFA.Storage.DependencyInjection;
+using TFA.Forum.Domain.Configurations;
+using TFA.Forum.Domain.DependencyInjection;
+using TFA.Forum.Storage.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,20 +22,6 @@ builder.Services.AddAutoMapper(config => config.AddProfile<ApiProfile>());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddHostedService<KafkaConsumer>();
-builder.Services.Configure<HostOptions>(options =>
-{
-    options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.StopHost;
-});
-
-builder.Services.AddSingleton(new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
-{
-    BootstrapServers = "localhost:9092",
-    EnableAutoCommit = false,
-    AutoOffsetReset = AutoOffsetReset.Earliest,
-    GroupId = "tfa.experiment"
-}).Build());
 
 var app = builder.Build();
 var mapper = app.Services.GetRequiredService<IMapper>();
