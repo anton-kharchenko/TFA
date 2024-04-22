@@ -11,7 +11,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\TFA.Search.Domain.DependencyInjection\TFA.Search.Domain.DependencyInjection.csproj" />
+      <ProjectReference Include="..\TFA.Search.Domain\TFA.Search.Domain.csproj" />
+      <ProjectReference Include="..\TFA.Search.Storage.DependencyInjection\TFA.Search.Storage.DependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>
