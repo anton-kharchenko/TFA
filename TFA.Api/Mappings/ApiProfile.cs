@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TFA.Api.Responses;
-using TFA.Forum.Domain.Models;
+using TFA.Forums.Domain.Models;
 
 namespace TFA.Api.Mappings;
 
@@ -8,7 +8,7 @@ public class ApiProfile : Profile
 {
     public ApiProfile()
     {
-        CreateMap<Forum.Domain.Models.Forum, ForumResponse>();
+        CreateMap<Forums.Domain.Models.Forum, ForumResponse>();
         CreateMap<Topic, TopicResponse>();
     }
 }

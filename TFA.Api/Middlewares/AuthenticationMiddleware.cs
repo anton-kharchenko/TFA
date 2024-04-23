@@ -1,6 +1,6 @@
 ﻿using TFA.Api.Authentication;
-using TFA.Forum.Domain.Authentication;
-using TFA.Forum.Domain.Interfaces.Authentication;
+using TFA.Forums.Domain.Authentication;
+using TFA.Forums.Domain.Interfaces.Authentication;
 
 namespace TFA.Api.Middlewares;
 

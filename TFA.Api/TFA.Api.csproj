@@ -35,9 +35,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TFA.Forum.Domain.DependencyInjection\TFA.Forum.Domain.DependencyInjection.csproj" />
-        <ProjectReference Include="..\TFA.Forum.Domain\TFA.Forum.Domain.csproj" />
-        <ProjectReference Include="..\TFA.Forum.Storage.DependencyInjection\TFA.Forum.Storage.DependencyInjection.csproj" />
-        <ProjectReference Include="..\TFA.Forum.Storage\TFA.Forum.Storage.csproj" />
+        <ProjectReference Include="..\TFA.Forums.Domain.DependencyInjection\TFA.Forums.Domain.DependencyInjection.csproj" />
+        <ProjectReference Include="..\TFA.Forums.Domain\TFA.Forums.Domain.csproj" />
+        <ProjectReference Include="..\TFA.Forums.Storage.DependencyInjection\TFA.Forums.Storage.DependencyInjection.csproj" />
+        <ProjectReference Include="..\TFA.Forums.Storage\TFA.Forums.Storage.csproj" />
     </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+using TFA.Search.API.Services;
 using TFA.Search.Domain.DependencyInjection;
 using TFA.Search.Storage.DependencyInjection;
 
@@ -9,6 +10,8 @@ builder.Services.AddSearchDomain();
 builder.Services.AddSearchStorage(builder.Configuration.GetConnectionString("SearchIndex")!);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddGrpcReflection().AddGrpc();
 
 var app = builder.Build();
 
@@ -23,5 +26,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGrpcService<SearchEngineGrpcService>();
+app.MapGrpcReflectionService();
 
 app.Run();

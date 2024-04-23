@@ -3,9 +3,9 @@ using TFA.Api.Authentication;
 using TFA.Api.Extensions;
 using TFA.Api.Mappings;
 using TFA.Api.Middlewares;
-using TFA.Forum.Domain.Configurations;
-using TFA.Forum.Domain.DependencyInjection;
-using TFA.Forum.Storage.DependencyInjection;
+using TFA.Forums.Domain.Configurations;
+using TFA.Forums.Domain.DependencyInjection;
+using TFA.Forums.Storage.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TFA.Forum.Domain.Exceptions;
+using TFA.Forums.Domain.Exceptions;
 
 namespace TFA.Api.Extensions;
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using TFA.Api.Extensions;
-using TFA.Forum.Domain.Exceptions;
+using TFA.Forums.Domain.Exceptions;
 
 namespace TFA.Api.Middlewares;
 

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using TFA.Api.Requests.Forum;
 using TFA.Api.Requests.Topic;
 using TFA.Api.Responses;
-using TFA.Forum.Domain.Commands.CreateForum;
-using TFA.Forum.Domain.Commands.CreateTopic;
-using TFA.Forum.Domain.Commands.GetTopics;
-using TFA.Forum.Domain.Queries.GetForum;
+using TFA.Forums.Domain.Commands.CreateForum;
+using TFA.Forums.Domain.Commands.CreateTopic;
+using TFA.Forums.Domain.Commands.GetTopics;
+using TFA.Forums.Domain.Queries.GetForum;
 
 namespace TFA.Api.Controllers;
 

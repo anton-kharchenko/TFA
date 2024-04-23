@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Domain", "TFA.Forum.Domain\TFA.Forum.Domain.csproj", "{2D27AE88-E158-4D62-A788-A8CECD7777E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Domain", "TFA.Forums.Domain\TFA.Forums.Domain.csproj", "{2D27AE88-E158-4D62-A788-A8CECD7777E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Storage", "TFA.Forum.Storage\TFA.Forum.Storage.csproj", "{F5830D9D-EF2D-48B2-83D9-52164FD73B37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Storage", "TFA.Forums.Storage\TFA.Forums.Storage.csproj", "{F5830D9D-EF2D-48B2-83D9-52164FD73B37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Api", "TFA.Api\TFA.Api.csproj", "{7EE2087D-C771-482F-AD0C-C9044910D5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Domain.Tests", "TFA.Forum.Domain.Tests\TFA.Forum.Domain.Tests.csproj", "{2CAF5CA5-C580-4FBB-B61B-9710BB427EEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Domain.Tests", "TFA.Forums.Domain.Tests\TFA.Forums.Domain.Tests.csproj", "{2CAF5CA5-C580-4FBB-B61B-9710BB427EEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{53B2074A-A9BF-4F48-B49F-50C5981A3F68}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,13 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		kafka-connect\tfa-source-connector.properties = kafka-connect\tfa-source-connector.properties
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Domain.DependencyInjection", "TFA.Forum.Domain.DependencyInjection\TFA.Forum.Domain.DependencyInjection.csproj", "{9837D518-0037-4D5A-8BEC-E4DD0E50FB19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Domain.DependencyInjection", "TFA.Forums.Domain.DependencyInjection\TFA.Forums.Domain.DependencyInjection.csproj", "{9837D518-0037-4D5A-8BEC-E4DD0E50FB19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Storage.DependencyInjection", "TFA.Forum.Storage.DependencyInjection\TFA.Forum.Storage.DependencyInjection.csproj", "{662CD08C-7015-49FB-856E-C84DBD2DF3A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Storage.DependencyInjection", "TFA.Forums.Storage.DependencyInjection\TFA.Forums.Storage.DependencyInjection.csproj", "{662CD08C-7015-49FB-856E-C84DBD2DF3A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.E2E", "TFA.Forum.E2E\TFA.Forum.E2E.csproj", "{22EECA13-5395-4DD2-A638-BE79C8EEA44F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.E2E", "TFA.Forums.E2E\TFA.Forums.E2E.csproj", "{22EECA13-5395-4DD2-A638-BE79C8EEA44F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forum.Storage.Tests", "TFA.Forum.Storage.Tests\TFA.Forum.Storage.Tests.csproj", "{F11C7963-4209-444E-8B9A-ACAEB0B0E296}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFA.Forums.Storage.Tests", "TFA.Forums.Storage.Tests\TFA.Forums.Storage.Tests.csproj", "{F11C7963-4209-444E-8B9A-ACAEB0B0E296}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFA.Forum", "TFA.Forum", "{008DC63B-2AD1-444C-9CC9-2D62C9C59B5D}"
 EndProject
