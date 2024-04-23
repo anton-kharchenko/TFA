@@ -8,6 +8,9 @@
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Grpc.Tools" Version="2.62.0"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.61.0"/>
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.61.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -16,4 +19,8 @@
       <ProjectReference Include="..\TFA.Search.Storage.DependencyInjection\TFA.Search.Storage.DependencyInjection.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Protobuf Include="search.proto"/>
+    </ItemGroup>
+    
 </Project>
