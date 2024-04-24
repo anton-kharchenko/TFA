@@ -6,7 +6,6 @@ using TFA.Forums.Api.Middlewares;
 using TFA.Forums.Domain.Configurations;
 using TFA.Forums.Domain.DependencyInjection;
 using TFA.Forums.Storage.DependencyInjection;
-using TFA.Search.API.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +22,6 @@ builder.Services.AddAutoMapper(config => config.AddProfile<ApiProfile>());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddGrpcClient<SearchEngine.SearchEngineClient>(options =>
-{
-    options.Address = new Uri(builder.Configuration.GetConnectionString("SearchEngine")!);
-});
 
 var app = builder.Build();
 var mapper = app.Services.GetRequiredService<IMapper>();

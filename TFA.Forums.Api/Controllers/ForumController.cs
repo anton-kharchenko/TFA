@@ -8,7 +8,6 @@ using TFA.Forums.Domain.Commands.CreateForum;
 using TFA.Forums.Domain.Commands.CreateTopic;
 using TFA.Forums.Domain.Commands.GetTopics;
 using TFA.Forums.Domain.Queries.GetForum;
-using TFA.Search.API.Grpc;
 
 namespace TFA.Forums.Api.Controllers;
 
@@ -19,13 +18,8 @@ public class ForumController(ISender sender, IMapperBase mapper) : ControllerBas
     [HttpGet(Name = nameof(GetForums))]
     [ProducesResponseType(200, Type = typeof(ForumResponse))]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> GetForums([FromServices] SearchEngine.SearchEngineClient searchEngineClient,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> GetForums(CancellationToken cancellationToken)
     {
-        searchEngineClient.SearchAsync(new SearchRequest()
-        {
-            Query = "Hello"
-        }, cancellationToken:cancellationToken);
         
         var forums = await sender.Send(new GetForumQuery(),cancellationToken);
         
