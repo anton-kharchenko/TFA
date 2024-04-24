@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TFA.Api\TFA.Api.csproj"/>
+        <ProjectReference Include="..\TFA.Forums.Api\TFA.Forums.Api.csproj" />
         <ProjectReference Include="..\TFA.Forums.Storage\TFA.Forums.Storage.csproj" />
     </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
-using TFA.Api.Requests.Forum;
+using TFA.Forums.Api.Requests.Forum;
 
 namespace TFA.Forums.E2E;
 
