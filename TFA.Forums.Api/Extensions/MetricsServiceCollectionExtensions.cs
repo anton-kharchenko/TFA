@@ -7,7 +7,7 @@ namespace TFA.Forums.Api.Extensions;
 
 internal static class MetricsServiceCollectionExtensions
 {
-    public static void AddApiMetrics(this IServiceCollection services,
+    public static void AddAPiMetrics(this IServiceCollection services,
         IConfiguration configuration)
     {
         services
@@ -28,7 +28,6 @@ internal static class MetricsServiceCollectionExtensions
                 })
                 .AddEntityFrameworkCoreInstrumentation(cnf => cnf.SetDbStatementForText = true)
                 .AddHttpClientInstrumentation()
-                .AddGrpcClientInstrumentation()
                 .AddSource("TFA.Forums.Domain")
                 .AddConsoleExporter()
                 .AddJaegerExporter(options => options.Endpoint = new Uri(configuration.GetConnectionString("Tracing")!))

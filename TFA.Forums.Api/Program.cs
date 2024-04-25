@@ -10,7 +10,7 @@ using TFA.Forums.Storage.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApiLogging(builder.Configuration, builder.Environment);
-builder.Services.AddApiMetrics(builder.Configuration);
+builder.Services.AddAPiMetrics(builder.Configuration);
 
 builder.Services.Configure<AuthenticationConfiguration>(builder.Configuration.GetSection("Authentication").Bind);
 builder.Services.AddScoped<ITokenStorage, AuthenticationTokenStorage>();
