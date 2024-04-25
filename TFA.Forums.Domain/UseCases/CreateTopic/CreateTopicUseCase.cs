@@ -4,6 +4,7 @@ using TFA.Forums.Domain.Extensions.UseCases;
 using TFA.Forums.Domain.Interfaces.Storages.Forum;
 using TFA.Forums.Domain.Commands.CreateTopic;
 using TFA.Forums.Domain.Enums;
+using TFA.Forums.Domain.Events;
 using TFA.Forums.Domain.Interfaces.Authentication;
 using TFA.Forums.Domain.Interfaces.Authorization;
 using TFA.Forums.Domain.Interfaces.Storages;
@@ -17,7 +18,7 @@ public class CreateTopicUseCase(
     IIntentionManager intentionManager,
     IIdentityProvider identityProvider,
     IGetForumsStorage getForumsStorage,
-    IUnitOfWork unitOfWork) 
+    IUnitOfWork unitOfWork)
     : IRequestHandler<CreateTopicCommand, Topic>
 {
     public async Task<Topic> Handle(CreateTopicCommand command, CancellationToken cancellationToken)
@@ -28,12 +29,13 @@ public class CreateTopicUseCase(
 
         await getForumsStorage.ThrowIfForumNotFoundAsync(forumId, cancellationToken);
 
-       await using var scope = await unitOfWork.StartScopeAsync(cancellationToken);
+        await using var scope = await unitOfWork.StartScopeAsync(cancellationToken);
 
-       var createTopicStorage = scope.GetStorage<ICreateTopicStorage>();
-       var topic = await createTopicStorage.CreateTopicAsync(forumId, identityProvider.Current.UserId, title, cancellationToken);
-       
-       await scope.CommitAsync(cancellationToken);
-       return topic;
+        var topic = await scope.GetStorage<ICreateTopicStorage>()
+            .CreateTopicAsync(forumId, identityProvider.Current.UserId, title, cancellationToken);
+        await scope.GetStorage<IDomainEventStorage>().AddEventAsync(ForumDomainEvent.TopicCreated(topic), cancellationToken);
+        await scope.CommitAsync(cancellationToken);
+
+        return topic;
     }
 }

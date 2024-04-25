@@ -1,7 +1,7 @@
-﻿using TFA.Forums.Domain.Enums;
-using TFA.Forums.Domain.Models;
+﻿using TFA.Search.Forum.Consumer.Enums;
+using TFA.Search.Forum.Consumer.Models;
 
-namespace TFA.Forums.Domain.Events;
+namespace TFA.Search.Forum.Consumer.Events;
 
 public class ForumDomainEvent
 {

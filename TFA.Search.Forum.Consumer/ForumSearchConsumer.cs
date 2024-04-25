@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
 using Confluent.Kafka;
 using TFA.Search.API.Grpc;
+using TFA.Search.Forum.Consumer.Enums;
+using TFA.Search.Forum.Consumer.Events;
+using TFA.Search.Forum.Consumer.Models;
 
 namespace TFA.Search.Forum.Consumer;
 
@@ -23,32 +26,37 @@ internal class ForumSearchConsumer(
                 continue;
             }
 
-            var domainEvent = JsonSerializer.Deserialize<DomainEvent>(consumeResult.Message.Value);
+            var domainEvent = JsonSerializer.Deserialize<DomainEventWrapper>(consumeResult.Message.Value);
             var contentBlob = Convert.FromBase64String(domainEvent!.ContentBlob);
-            var topic = JsonSerializer.Deserialize<Topic>(contentBlob);
+            var forumDomainEvent = JsonSerializer.Deserialize<ForumDomainEvent>(contentBlob);
 
-           await searchEngineClient.IndexAsync(new IndexRequest()
+            switch (forumDomainEvent!.EventType)
             {
-                Id = topic!.Id.ToString(),
-                Type = SearchEntityType.ForumTopic,
-                Title = topic.Title
-            }, cancellationToken:stoppingToken);
+                case ForumDomainEventType.TopicCreated:
+                    await searchEngineClient.IndexAsync(new IndexRequest()
+                    {
+                        Id = forumDomainEvent!.TopicId.ToString(),
+                        Type = SearchEntityType.ForumTopic,
+                        Title = forumDomainEvent.Title
+                    }, cancellationToken:stoppingToken);
+                    break;
+                case ForumDomainEventType.TopicUpdated:
+                    break;
+                case ForumDomainEventType.TopicDeleted:
+                    break;
+                case ForumDomainEventType.CommentCreated:
+                    break;
+                case ForumDomainEventType.CommentUpdated:
+                    break;
+                case ForumDomainEventType.CommentDeleted:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
             consumer.Commit(consumeResult);
         }
         
         consumer.Close();
     }
-}
-
-internal class Topic
-{
-    public Guid Id { get; set; }
-    
-    public string Title { get; set; } = default!;
-}
-
-internal class DomainEvent
-{
-    public string ContentBlob { get; set; } = default!;
 }
