@@ -26,7 +26,7 @@ internal static class LoggingServiceCollectionExtensions
                 ActivityTrackingOptions.TraceId | ActivityTrackingOptions.SpanId)
             .AddSerilog(new LoggerConfiguration()
                 .MinimumLevel.ControlledBy(loggingLevelSwitch)
-                .Enrich.WithProperty("Application", "TFA.Search.API")
+                .Enrich.WithProperty("Application", "TFA.Search.Forum.Consumer.API")
                 .Enrich.WithProperty("Environment", environment.EnvironmentName)
                 .Enrich.With<TracingContextEnricher>()
                 .WriteTo.Logger(lc => lc

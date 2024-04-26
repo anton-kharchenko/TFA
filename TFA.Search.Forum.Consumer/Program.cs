@@ -2,8 +2,12 @@ using Confluent.Kafka;
 using Microsoft.Extensions.Options;
 using TFA.Search.API.Grpc;
 using TFA.Search.Forum.Consumer;
+using TFA.Search.Forum.Consumer.Monitoring;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddApiLogging(builder.Configuration, builder.Environment);
+builder.Services.AddApiMetrics(builder.Configuration);
 
 builder.Services.AddGrpcClient<SearchEngine.SearchEngineClient>(options =>
 {

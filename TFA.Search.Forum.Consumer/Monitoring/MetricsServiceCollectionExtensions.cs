@@ -6,8 +6,7 @@ namespace TFA.Search.Forum.Consumer.Monitoring;
 
 internal static class MetricsServiceCollectionExtensions
 {
-    public static void AddApiMetrics(this IServiceCollection services,
-        IConfiguration configuration)
+    public static void AddApiMetrics(this IServiceCollection services, IConfiguration configuration)
     {
         var searchEnginHost = configuration.GetConnectionString("SearchEngine");
 
@@ -16,7 +15,7 @@ internal static class MetricsServiceCollectionExtensions
             .WithMetrics(builder => builder
                 .AddInstrumentation(serviceProvider => serviceProvider)
                 .AddPrometheusExporter()
-                .AddMeter("TFA.Forums.Domain")
+                .AddMeter("TFA.Search.Forum.Consumer.API")
             )
             .WithTracing(builder => builder.ConfigureResource(r => r.AddService("TFA"))
                 .AddAspNetCoreInstrumentation(opt =>
@@ -29,9 +28,12 @@ internal static class MetricsServiceCollectionExtensions
                 })
                 .AddHttpClientInstrumentation(options =>
                 {
-                    options.FilterHttpRequestMessage += message => message.RequestUri!.ToString().Contains(searchEnginHost!);
+                    options.FilterHttpRequestMessage += message =>
+                        message.RequestUri!.ToString().Contains(searchEnginHost!);
                 })
-                .AddSource("TFA.Forums.Domain")
+                .AddSource("ForumSearchConsumer")
+                .AddGrpcClientInstrumentation()
+                .AddSource("TFA.Search.Forum.Consumer.API")
                 .AddConsoleExporter()
                 .AddJaegerExporter(options => options.Endpoint = new Uri(configuration.GetConnectionString("Tracing")!))
             );
