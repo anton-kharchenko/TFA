@@ -5,10 +5,13 @@ namespace TFA.Forums.Storage.Entities;
 
 public class User
 {
-    [Key] public required Guid UserId { get; set; }
+    [Key] 
+    [Required]
+    public Guid UserId { get; set; } = default!;
 
     [MaxLength(20)] 
-    public required string Login { get; set; }
+    [Required]
+    public string Login { get; set; } = default!;
 
     [MaxLength(32)] 
     public byte[] Salt { get; set; } = default!;

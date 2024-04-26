@@ -2,5 +2,6 @@
 
 public enum TopicIntentionType
 {
-    Create
+    Create,
+    CreateComment
 }

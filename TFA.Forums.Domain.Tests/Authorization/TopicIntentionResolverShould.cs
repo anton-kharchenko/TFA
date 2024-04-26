@@ -3,7 +3,7 @@ using Moq;
 using TFA.Forums.Domain.Authentication;
 using TFA.Forums.Domain.Enums;
 using TFA.Forums.Domain.Interfaces.Authentication;
-using TFA.Forums.Domain.Resolvers.Topic;
+using TFA.Forums.Domain.Resolvers;
 
 namespace TFA.Forums.Domain.Tests.Authorization;
 

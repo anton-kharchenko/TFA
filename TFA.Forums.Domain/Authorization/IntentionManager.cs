@@ -14,6 +14,7 @@ internal class IntentionManager(IEnumerable<IIntentionResolver> resolvers, IIden
 
     public bool IsAllowed<TIntention, TTarget>(TIntention intention, TTarget target) where TIntention : struct
     {
-        throw new NotImplementedException();
+        var resolver = resolvers.OfType<IIntentionResolver<TIntention, TTarget>>().FirstOrDefault();
+        return resolver?.IsAllowed(identityProvider.Current, intention, target) ?? false;
     }
 }

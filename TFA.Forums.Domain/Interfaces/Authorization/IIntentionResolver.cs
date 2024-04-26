@@ -8,3 +8,8 @@ internal interface IIntentionResolver<in TIntention> : IIntentionResolver
 {
     bool IsAllowed(IIdentity identity, TIntention intention);
 }
+
+internal interface IIntentionResolver<in TIntention, in TTarget> : IIntentionResolver
+{
+    bool IsAllowed(IIdentity subject, TIntention intention, TTarget target);
+}

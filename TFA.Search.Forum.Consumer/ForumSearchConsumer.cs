@@ -15,9 +15,9 @@ internal class ForumSearchConsumer(
     SearchEngine.SearchEngineClient searchEngineClient,
     IOptions<ConsumerConfig> consumerConfig) : BackgroundService
 {
-    private static readonly ActivitySource ActivitySource = new ("ForumSearchConsumer");
+    private static readonly ActivitySource ActivitySource = new("ForumSearchConsumer");
     private readonly ConsumerConfig _consumerConfig = consumerConfig.Value;
-    
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
@@ -26,7 +26,7 @@ internal class ForumSearchConsumer(
         while (!stoppingToken.IsCancellationRequested)
         {
             var consumeResult = consumer.Consume(stoppingToken);
-            
+
             if (consumeResult is not { IsPartitionEOF: false })
             {
                 await Task.Delay(300, stoppingToken);
@@ -36,16 +36,16 @@ internal class ForumSearchConsumer(
             var activityId = consumeResult.Message.Headers.TryGetLastBytes("activity_id", out var lastBytes)
                 ? Encoding.UTF8.GetString(lastBytes)
                 : null;
-            
-            using var activity = ActivitySource.StartActivity("ForumSearchConsumer.Kafka.Consume", 
-                ActivityKind.Consumer, 
+
+            using var activity = ActivitySource.StartActivity("ForumSearchConsumer.Kafka.Consume",
+                ActivityKind.Consumer,
                 ActivityContext.TryParse(activityId, null, out var context) ? context : default);
-            
+
             activity?.AddTag("messaging.system", "kafka");
             activity?.AddTag("messaging.destination.name", "tfa.DomainEvents");
             activity?.AddTag("messaging.kafka.consumer_group", _consumerConfig.GroupId);
             activity?.AddTag("messaging.kafka.partition", consumeResult.Partition);
-            
+
             var domainEvent = JsonSerializer.Deserialize<DomainEventWrapper>(consumeResult.Message.Value);
             var contentBlob = Convert.FromBase64String(domainEvent!.ContentBlob);
             var forumDomainEvent = JsonSerializer.Deserialize<ForumDomainEvent>(contentBlob);
@@ -58,13 +58,20 @@ internal class ForumSearchConsumer(
                         Id = forumDomainEvent!.TopicId.ToString(),
                         Type = SearchEntityType.ForumTopic,
                         Title = forumDomainEvent.Title
-                    }, cancellationToken:stoppingToken);
+                    }, cancellationToken: stoppingToken);
                     break;
                 case ForumDomainEventType.TopicUpdated:
                     break;
                 case ForumDomainEventType.TopicDeleted:
                     break;
                 case ForumDomainEventType.CommentCreated:
+                    await searchEngineClient.IndexAsync(new IndexRequest()
+                    {
+                        Id = forumDomainEvent!.Comment!.CommentId.ToString(),
+                        Type = SearchEntityType.ForumComment,
+                        Text = forumDomainEvent.Comment.Text
+                    }, cancellationToken: stoppingToken);
+
                     break;
                 case ForumDomainEventType.CommentUpdated:
                     break;
@@ -73,10 +80,10 @@ internal class ForumSearchConsumer(
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             consumer.Commit(consumeResult);
         }
-        
+
         consumer.Close();
     }
 }

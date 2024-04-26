@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TFA.Forums.Domain.Interfaces.Storages;
+using TFA.Forums.Domain.Interfaces.Storages.Comment;
 using TFA.Forums.Domain.Interfaces.Storages.Forum;
 using TFA.Forums.Domain.Interfaces.Storages.Topic;
 using TFA.Forums.Domain.Interfaces.UseCases.GetForums;
@@ -14,6 +15,7 @@ using TFA.Forums.Storage.Helpers;
 using TFA.Forums.Storage.Interfaces;
 using TFA.Forums.Storage.Storages;
 using TFA.Forums.Storage.Storages.Authentication;
+using TFA.Forums.Storage.Storages.Comment;
 using TFA.Forums.Storage.Storages.Forum;
 using TFA.Forums.Storage.Storages.SignIn;
 using TFA.Forums.Storage.Storages.SignOn;
@@ -30,6 +32,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IAuthenticationStorage, AuthenticationStorage>()
             .AddScoped<ICreateTopicStorage, CreateTopicStorage>()
             .AddScoped<ICreateForumStorage, CreateForumStorage>()
+            .AddScoped<ICreateCommentStorage, CreateCommentStorage>()
             .AddScoped<IGetForumsStorage, GetForumsStorage>()
             .AddScoped<IGetTopicsStorage, GetTopicStorage>()
             .AddScoped<ISignInStorage, SignInStorage>()

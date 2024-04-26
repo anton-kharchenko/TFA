@@ -17,9 +17,5 @@
         <ProjectReference Include="..\TFA.Forums.Domain\TFA.Forums.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Storages\Events\" />
-    </ItemGroup>
-
 
 </Project>

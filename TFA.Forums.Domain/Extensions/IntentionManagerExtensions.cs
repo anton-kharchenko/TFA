@@ -10,4 +10,11 @@ public static class IntentionManagerExtensions
     {
         if (!intentionManager.IsAllowed(intention)) throw new IntentionManagerException();
     }
+    
+    public static void ThrowIfForbidden<TIntention, TTarget>(this IIntentionManager intentionManager, 
+        TIntention intention, TTarget target)
+        where TIntention : struct
+    {
+        if (!intentionManager.IsAllowed(intention, target)) throw new IntentionManagerException();
+    }
 }

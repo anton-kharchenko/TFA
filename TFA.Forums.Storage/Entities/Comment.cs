@@ -5,7 +5,7 @@ namespace TFA.Forums.Storage.Entities;
 
 public class Comment
 {
-    [Key] public Guid CommentId { get; set; }
+    [Key] public Guid Id { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
@@ -17,9 +17,9 @@ public class Comment
 
     public Guid TopicId { get; set; }
 
-    [ForeignKey(nameof(UserId))] public required User Author { get; set; }
+    [ForeignKey(nameof(UserId))] public  User? Author { get; set; }
 
-    [ForeignKey(nameof(TopicId))] public required Topic Topic { get; set; }
+    [ForeignKey(nameof(TopicId))] public  Topic? Topic { get; set; }
 
     public Guid ForumId { get; set; }
 }
