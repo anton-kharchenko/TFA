@@ -32,6 +32,8 @@ internal class CreateCommentUseCase(
         var domainEventsStorage = scope.GetStorage<IDomainEventStorage>();
         var comment = await storage.CreateAsync(request.TopicId, identityProvider.Current.UserId, request.Text, cancellationToken);
         await domainEventsStorage.AddEventAsync(ForumDomainEvent.CommentCreated(topic, comment), cancellationToken);
+        
+        await scope.CommitAsync(cancellationToken);
         return comment;
     }
 }
