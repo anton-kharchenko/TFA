@@ -13,5 +13,5 @@ public class CreateCommentCommand : IRequest<Comment>
 
     public Guid TopicId { get; set; }
     
-    public string Text { get; set; } = default!;
+    public string Text { get; set; }
 }

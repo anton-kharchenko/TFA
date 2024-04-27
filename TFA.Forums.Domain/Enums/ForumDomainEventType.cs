@@ -8,5 +8,5 @@ public enum ForumDomainEventType
     
     CommentCreated = 200,
     CommentUpdated = 201,
-    CommentDeleted = 202,
+    CommentDeleted = 202
 }

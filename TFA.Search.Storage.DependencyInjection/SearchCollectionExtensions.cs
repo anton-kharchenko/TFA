@@ -18,7 +18,7 @@ public static class SearchCollectionExtensions
         {
             ConnectionSettings =
             {
-                DefaultIndices = { [typeof(SearchEntity)] = "tfa-search-v1" },
+                DefaultIndices = { [typeof(SearchEntity)] = "tfa-search-v1" }
             }
         });
     }

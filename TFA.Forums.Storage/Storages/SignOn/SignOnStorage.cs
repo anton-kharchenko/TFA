@@ -16,7 +16,7 @@ internal class SignOnStorage(ForumDbContext forumDbContext, IGuidFactory guidFac
             UserId = userId,
             Login = login,
             Salt = salt,
-            PasswordHash = hash,
+            PasswordHash = hash
         }, token);
         
         await forumDbContext.SaveChangesAsync(token);

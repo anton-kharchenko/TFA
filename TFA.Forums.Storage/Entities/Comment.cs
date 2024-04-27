@@ -11,6 +11,7 @@ public class Comment
 
     public DateTimeOffset? UpdatedAt { get; set; }
 
+    [MaxLength(2000)]
     public string? Text { get; set; }
 
     public Guid UserId { get; set; }

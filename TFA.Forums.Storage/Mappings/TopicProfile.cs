@@ -9,5 +9,9 @@ internal class TopicProfile : Profile
     {
         CreateMap<Topic, Forums.Domain.Models.Topic>()
             .ForMember(d => d.Id, s => s.MapFrom(f => f.ForumId));
+        
+        CreateMap<TopicListItemReadModel, Topic>()
+            .ForMember(d => d.TopicId,
+                s => s.MapFrom(f => f.TopicId));
     }
 }

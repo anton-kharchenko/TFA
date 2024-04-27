@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TFA.Forums.Storage;
 using TFA.Forums.Storage.Configurations;
-
 
 #nullable disable
 
@@ -24,9 +22,9 @@ namespace TFA.Forums.Storage.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TFA.Forums.Storage.Comment", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Comment", b =>
                 {
-                    b.Property<Guid>("CommentId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -37,7 +35,8 @@ namespace TFA.Forums.Storage.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Text")
-                        .HasColumnType("text");
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
 
                     b.Property<Guid>("TopicId")
                         .HasColumnType("uuid");
@@ -48,7 +47,7 @@ namespace TFA.Forums.Storage.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TopicId");
 
@@ -57,7 +56,29 @@ namespace TFA.Forums.Storage.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Forum", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.DomainEvent", b =>
+                {
+                    b.Property<Guid>("DomainEventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ActivityId")
+                        .HasMaxLength(55)
+                        .HasColumnType("character varying(55)");
+
+                    b.Property<byte[]>("ContentBlob")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<DateTimeOffset>("EmittedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("DomainEventId");
+
+                    b.ToTable("DomainEvents");
+                });
+
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Forum", b =>
                 {
                     b.Property<Guid>("ForumId")
                         .ValueGeneratedOnAdd()
@@ -65,14 +86,34 @@ namespace TFA.Forums.Storage.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("ForumId");
 
                     b.ToTable("Forums");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Topic", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Session", b =>
+                {
+                    b.Property<Guid>("SessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("SessionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sessions");
+                });
+
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Topic", b =>
                 {
                     b.Property<Guid>("TopicId")
                         .ValueGeneratedOnAdd()
@@ -101,7 +142,7 @@ namespace TFA.Forums.Storage.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.User", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -112,20 +153,30 @@ namespace TFA.Forums.Storage.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("bytea");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("bytea");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Comment", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Comment", b =>
                 {
-                    b.HasOne("TFA.Forums.Storage.Topic", "Topic")
+                    b.HasOne("TFA.Forums.Storage.Entities.Topic", "Topic")
                         .WithMany("Comments")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TFA.Forums.Storage.User", "Author")
+                    b.HasOne("TFA.Forums.Storage.Entities.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -136,15 +187,26 @@ namespace TFA.Forums.Storage.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Topic", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Session", b =>
                 {
-                    b.HasOne("TFA.Forums.Storage.Forum", "Forum")
+                    b.HasOne("TFA.Forums.Storage.Entities.User", "User")
+                        .WithMany("Sessions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Topic", b =>
+                {
+                    b.HasOne("TFA.Forums.Storage.Entities.Forum", "Forum")
                         .WithMany("Topics")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TFA.Forums.Storage.User", "Author")
+                    b.HasOne("TFA.Forums.Storage.Entities.User", "Author")
                         .WithMany("Topics")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -155,19 +217,21 @@ namespace TFA.Forums.Storage.Migrations
                     b.Navigation("Forum");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Forum", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Forum", b =>
                 {
                     b.Navigation("Topics");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.Topic", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.Topic", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("TFA.Forums.Storage.User", b =>
+            modelBuilder.Entity("TFA.Forums.Storage.Entities.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Sessions");
 
                     b.Navigation("Topics");
                 });

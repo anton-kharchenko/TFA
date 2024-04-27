@@ -19,7 +19,6 @@ public class SignInUseCaseShould
     private readonly Mock<ISymmetricEncryptor> encryptor;
     private readonly ISetup<ISymmetricEncryptor, Task<string>> encryptorSetup;
     private readonly ISetup<ISignInStorage, Task<RecognisedUser?>> findUserSetup;
-    private readonly Mock<IPasswordManager> passwordManager;
     private readonly Mock<ISignInStorage> storage;
     private readonly SignInUseCase sut;
 
@@ -32,7 +31,7 @@ public class SignInUseCaseShould
             s.CreateSessionAsync(It.IsAny<Guid>(), It.IsAny<DateTimeOffset>(), It.IsAny<CancellationToken>()));
 
 
-        passwordManager = new Mock<IPasswordManager>();
+        Mock<IPasswordManager> passwordManager = new();
         comparePasswordSetup = passwordManager.Setup(m =>
             m.ComparePasswords(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>()));
 

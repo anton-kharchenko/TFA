@@ -15,7 +15,7 @@ internal class IndexStorage(IOpenSearchClient client) : IIndexStorage
             EntityId = entityId,
             EntityType = (int)entityType,
             Title = title,
-            Text = text,
+            Text = text
         }, desc =>
             desc.Index("tfa-search-v1"), cancellationToken);
     }
